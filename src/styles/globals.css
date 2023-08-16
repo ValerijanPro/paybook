@@ -3,9 +3,9 @@
 
 :root {
   --main-color: #02081a;
-  --secondary-color: #160e30;
-  --third-color: #656665;
-  --fourth-color: #fffdd0;
+  --secondary-color: #f4ececf5;
+  --third-color: #bcbfbc;
+  --fourth-color: #000000;
   --fifth-color: #e8e8e9;
  
 }
@@ -47,7 +47,7 @@ a {
 
 form {
   width: 300px;
-  height: 400px;
+  height: 350px;
   padding: 20px;
   border: 1px solid var(--main-color);
   border-radius: 25px;
@@ -65,7 +65,7 @@ label {
 input {
   width: 100%;
   padding: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border: 1px solid var(--third-color);
   border-radius: 25px;
   font-size: 14px;
@@ -78,13 +78,13 @@ input::placeholder {
 button {
   width: 100%;
   padding: 10px;
-  background-color: var(--fourth-color);
+  background: linear-gradient(to bottom, var(--fourth-color), var(--third-color));
   color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 button:hover {
