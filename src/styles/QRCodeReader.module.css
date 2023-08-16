@@ -14,3 +14,13 @@
   height: 100%;
   object-fit: cover;
 }
+
+.button {
+  position: absolute;
+  margin-top: 15%;
+  background-color: rgb(163, 139, 0);
+  padding: 5px 15px;
+  border-radius: 8px;
+  color: lightblue;
+  cursor: pointer;
+}

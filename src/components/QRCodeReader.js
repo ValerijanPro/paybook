@@ -10,17 +10,14 @@ const QRCodeReader = () => {
     },
   });
 
-  useEffect(() => {
-    if (result) {
-      setTimeout(() => {
-        window.open(result, "_blank");
-      }, 3000);
-    }
-  }, [result]);
-
   return (
     <div className={styles.container}>
       <video className={styles.camera} ref={ref} />
+      {result ? (
+        <a href={result} target="_blank" className={styles.button}>
+          {result}
+        </a>
+      ) : null}
     </div>
   );
 };
