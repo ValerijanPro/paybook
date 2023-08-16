@@ -6,9 +6,3 @@
   height: 100vh;
   flex-direction: column;
 }
-
-.scanButton {
-  padding: 10px 20px;
-  background-color: red;
-  color: white;
-}

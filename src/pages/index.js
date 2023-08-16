@@ -1,8 +1,15 @@
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import QRCodeReader from "@/components/QRCodeReader";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  return <div>Paybook</div>;
+  const router = useRouter();
+
+  return (
+    <div className={styles.container}>
+      <div onClick={() => router.push("/qr")} className={styles.scanButton}>
+        QR SCAN
+      </div>
+    </div>
+  );
 }
