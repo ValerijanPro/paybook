@@ -12,7 +12,9 @@ const QRCodeReader = () => {
 
   useEffect(() => {
     if (result) {
-      window.open(result, "_blank");
+      setTimeout(() => {
+        window.open(result, "_blank");
+      }, 3000);
     }
   }, [result]);
 
