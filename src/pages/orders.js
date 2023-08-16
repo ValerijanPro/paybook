@@ -6,38 +6,64 @@ function OrdersPage(){
 
     const [orders, setOrders] = useState([]);
     const [firstOrder, setFirstOrder] = useState({});
+    const [isAnimating, setIsAnimating] = useState(false);
+
     useEffect(()=>{
-        orders.push({"slika":"background.jpg", "naziv":"Gurmanska pljeskavica", "sastojci": "sastojci", "cena":105, "kolicina":1, "velicina":"500g", "sto":15 })
+        orders.push({"slika":"background.jpg", "naziv":"Prva pljeskavica", "sastojci": "sastojci", "cena":105, "kolicina":551, "velicina":"500g", "sto":15 })
         setFirstOrder(orders.at(0));
         const newOrders = orders.slice(1);
         setOrders(newOrders); 
     }, [])
 
     const handleButtonClick = () => {
-        //take first order from the start
 
-        //check if there are none, to show the no orders message
+        //take first order from the start
+        
+
+        setIsAnimating(true);
+        setTimeout(() => {
+            if(firstOrder.naziv == "Prva pljeskavica"){
+            
+                orders.pop();
+                orders.push({"slika":"background.jpg", "naziv":"Druga pljeskavica", "sastojci": "sastojci", "cena":105, "kolicina":551, "velicina":"500g", "sto":15 })
+                setFirstOrder(orders.at(0));
+            }
+            else{
+                orders.pop();
+                orders.push({"slika":"background.jpg", "naziv":"Prva pljeskavica", "sastojci": "sastojci", "cena":105, "kolicina":551, "velicina":"500g", "sto":15 })
+                setFirstOrder(orders.at(0));
+            }
+            setIsAnimating(false);
+        }, 1000);
+
+        
     }
 
     return (
         <div className={styles.container}>
-            <div className={styles.order}>
-                <div style={{ display:'flex', fontSize:'40px' }}>
-                    <div style={{ marginRight:'1rem', wordWrap: 'break-word', maxWidth:'70%' }}>{firstOrder.naziv}</div>
-                    <span style={{ alignItems:'center', justifyContent:'center' }} > x </span>
-                    <div style={{ marginLeft:'1rem' }}>{firstOrder.kolicina}</div>
+            <div className={`${styles.order} ${isAnimating ? styles.animating : ""}`}>
+                <div className={styles.orderSection}>
+                    <div className={styles.centeredText} style={{ marginRight: '2rem', wordWrap: 'break-word' }}>{firstOrder.naziv}</div>
                 </div>
-                
-                <div>{firstOrder.velicina}</div>
-                <div style={{ display:'flex' }}>
-                    <div>{firstOrder.cena}</div>
-                    <div>{firstOrder.sto}</div>
+    
+                <div className={styles.orderSection}>
+                    <span className={styles.centeredText}> Quantity: </span>
+                    <div className={styles.centeredText} style={{ marginLeft: '1rem' }}>{firstOrder.kolicina}</div>
                 </div>
-                <button  type="button">Finish</button>
+    
+                <div className={styles.orderSection}>Size: {firstOrder.velicina}</div>
+                <div className={styles.orderSection}>
+                    <div style={{ width: '50%' }} className={styles.centeredText}>Cost: {firstOrder.cena}</div>
+                    <div style={{ width: '50%' }} className={styles.centeredText}>Table: {firstOrder.sto}</div>
+                </div>
+                <div className={styles.break}></div>
+                <button onClick={handleButtonClick} type="button">Finish</button>
             </div>
-            
+
+           
         </div>
     );
+    
 
 }
 

@@ -64,6 +64,7 @@ function AdminPage() {
       // Implement your login logic here
       tryLogin().then(()=>{
         setShowLoadingIcon(true);
+        setError(false);
         //delay 1s onako cisto;
         setTimeout(() => {
           console.log("Logged in bro!");
@@ -79,7 +80,7 @@ function AdminPage() {
 
   const tryLogin = async () => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      const response = await fetch('https://arliving.herokuapp.com/arliving/pb_login_and_get_categories', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
