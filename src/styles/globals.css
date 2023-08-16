@@ -1,12 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+
 :root {
-  --main-color: #008f97;
-  --secondary-color: #000000;
+  --main-color: #02081a;
+  --secondary-color: #160e30;
+  --third-color: #656665;
+  --fourth-color: #fffdd0;
+  --fifth-color: #e8e8e9;
+ 
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'Lato', sans-serif;
 }
 
 html,
@@ -16,11 +24,11 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--fourth-color);
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      rgb(var(--main-color))
     )
     rgb(var(--background-start-rgb));
 }
@@ -34,4 +42,51 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+
+form {
+  width: 300px;
+  height: 400px;
+  padding: 20px;
+  border: 1px solid var(--main-color);
+  border-radius: 25px;
+  background-color: var(--secondary-color);
+}
+
+
+
+label {
+  display: block;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--third-color);
+  border-radius: 25px;
+  font-size: 14px;
+   background-color: var(--third-color)
+}
+input::placeholder {
+  color: var(--fourth-color); /* Set the desired color */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--fourth-color);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--main-color);
 }

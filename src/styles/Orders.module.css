@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--main-color);
+    background-image: url('../../public/background2.jpg'); /* Relative path to your image */
+    background-size: cover; /* Adjust this as needed */
+    background-repeat: no-repeat;
+}
+
+.order{
+    max-width: 350px;
+    height: 700px;
+    padding: 20px;
+    border: 1px solid var(--main-color);
+    border-radius: 25px;
+    background-color: var(--secondary-color);
+}
+
