@@ -153,12 +153,14 @@ function AdminPage() {
           </div>
         </div>
         {error && (
-          <p
+          <p style={{ marginLeft: '5px',  marginRight: '4px',  marginBottom:'-15px', display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center' }}
             className={`${styles.error} ${isMovingRight ? styles.moveUp : ""} ${
               isMovingLeft ? styles.moveDown : ""
             }`}
           >
-            Please enter both username and password
+            <span className={styles.textCenter}>Please enter both username and password</span>
           </p>
         )}
         <div className={styles.loadingWrapper}>

@@ -5,22 +5,30 @@
   justify-content: center;
   height: 100vh;
   background-color: var(--main-color);
-  background-image: url('../../public/background4.png'); /* Relative path to your image */
-  background-size: cover; /* Adjust this as needed */
+  background-image: url('../../public/background4.jpg'); /* Relative path to your image */
+  background-size: 100% 100%; /* Adjust this as needed */
   background-repeat: no-repeat;
 }
 
 .formGroup {
-    margin-bottom: 5px;
     text-align: center;
 }
 
 .error {
+    
     color: red;
     font-size: 14px;
     margin-top: 5px;
     transition: transform 0.4s ease; /* Add a transition for transform */
   }
+  .textCenter {
+    text-align: center;
+  }
+
+  
+  
+  
+  
   
   .moveUp {
     transform: translateY(0); /* Move the error text up */

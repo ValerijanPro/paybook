@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,65 +6,90 @@
     height: 100vh;
     background-color: var(--main-color);
     background-image: url('../../public/background4.png'); /* Relative path to your image */
-    background-size: cover; /* Adjust this as needed */
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-}
-
-.order{
-    max-width: 300px;
-    height: 600px;
+  }
+  
+  .order {
+    width: 350px;
+    height: 800px;
     padding: 20px;
     border: 1px solid var(--main-color);
     border-radius: 25px;
     background-color: var(--secondary-color);
-    box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px
-}
-
-.orderSection{
-    display:flex;
+    box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+  }
+  
+  .orderSection {
+    display: flex;
     margin: 2rem 0;
-    font-size: 40px
-}
-
-.centeredText{
+    font-size: 40px;
+  }
+  
+  .centeredText {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.break{
-    height:30px;
-    width:100%
-}
-
-.animating {
-    animation:  moveOrder 1s ease-in-out;
-}
-
-@keyframes moveShadow {
+  }
+  
+  .break {
+    height: 30px;
+    width: 100%;
+  }
+  
+  .animating {
+    animation: moveOrder 1s ease-in-out;
+  }
+  
+  @keyframes moveShadow {
     from {
-        box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px
+      box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
     }
     to {
-        box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 0px 0px 0px 0px, var(--main-color) 0px 0px
+      box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 0px 0px 0px 0px, var(--main-color) 0px 0px;
     }
-}
-
-
-@keyframes moveOrder {
+  }
+  
+  @keyframes moveOrder {
     to {
-        transform: translate(-100px, 100px);
-        opacity: 0;
+      transform: translate(-500px, 500px);
+      opacity: 0;
     }
     50% {
-        transform: translate(0);
-        opacity: 1;
-        box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+      transform: translate(0);
+      opacity: 1;
+      box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
     }
     from {
-        transform: translate(0);
-        opacity: 1;
-        box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+      transform: translate(0, 20px);
+      opacity: 1;
+      box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
     }
-}
-
+  }
+  
+  .table {
+    display: flex;
+    font-size: 40px;
+    width: 100%;
+    padding-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px dotted black;
+  }
+  
+  .orderBody {
+    padding-top: 2rem;
+    width: 100%;
+    overflow-x: auto;
+    max-height: 600px; /* Set max-height to trigger the scrollbar */
+    overflow-y: auto; /* Add vertical scrollbar when content exceeds height */
+  }
+  
+  .orderProduct {
+    padding: 1rem 1rem;
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid var(--main-color);
+    border-radius: 25px;
+  }
+  

@@ -47,7 +47,7 @@ a {
 
 form {
   width: 300px;
-  height: 350px;
+  height: 280px;
   padding: 20px;
   border: 1px solid var(--main-color);
   border-radius: 25px;
@@ -58,14 +58,14 @@ form {
 
 label {
   display: block;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   font-weight: bold;
 }
 
 input {
   width: 100%;
   padding: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border: 1px solid var(--third-color);
   border-radius: 25px;
   font-size: 14px;
