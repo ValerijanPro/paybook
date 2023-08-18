@@ -1,7 +1,9 @@
-POST https://arliving.herokuapp.com/arliving/pb_login_and_get_categories HTTP/1.1
+
+
+
+POST https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant 
 content-type: application/json
 
 {
-    "username": "sample",
-    "password": "Wed, 21 Oct 2015 18:27:50 GMT"
+    "restaurant_id":1
 }

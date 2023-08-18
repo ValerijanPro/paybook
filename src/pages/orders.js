@@ -11,14 +11,55 @@ function OrdersPage(){
     const [isAnimating, setIsAnimating] = useState(false);
     const [orderColor, setOrderColor] = useState(colorCycle[colorIndex]);
 
-    
+    const [restaurant, setRestaurant] = useState({});
 
     useEffect(()=>{
-        orders.push({"slika":"background.jpg", "naziv":"Prva pljeskavica", "sastojci": "sastojci", "cena":105, "kolicina":551, "velicina":"500g", "sto":15 })
-        setFirstOrder(orders.at(0));
-        const newOrders = orders.slice(1);
-        setOrders(newOrders); 
+        
+        setRestaurant(JSON.parse(sessionStorage.getItem("restaurant")));
+  
+        
     }, [])
+
+    useEffect(()=>{
+        tryGetOrders().then(()=>{
+            console.log(orders);
+            console.log("valerijan");
+            console.log(restaurant)
+        })
+    }, [restaurant])
+
+    const tryGetOrders = async () => {
+        try {
+            const response = await fetch('https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              
+              body: JSON.stringify({
+                restaurant_id: restaurant.id,
+              }),
+              
+            });
+            console.log("HERE");
+            console.log(restaurant.id);
+            if (response.error) {
+              throw new Error('Request failed');
+            }
+      
+            const responseData = await response.json();
+            let tmpArray = responseData.order;
+            console.log("BRO"+tmpArray);
+            for(let x of tmpArray){
+                orders.push(x);
+            }
+            
+ 
+            
+          } catch (error) {
+            //setError('An error occurred while fetching data');
+          }
+    }
 
     const handleButtonClick = () => {
 
