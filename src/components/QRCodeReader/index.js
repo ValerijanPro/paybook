@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useZxing } from "react-zxing";
-import styles from "../styles/QRCodeReader.module.css";
+import styles from "../../styles/QRCodeReader.module.css";
+import { useRouter } from "next/router";
 
 const QRCodeReader = () => {
+  const router = useRouter();
+
   const [result, setResult] = useState();
   const { ref } = useZxing({
     onResult(result) {
-      setResult(result.getText());
+      const textResult = result.getText();
+      console.log(textResult);
+      if (!textResult?.includes("http")) {
+        router.push(`/location?code=${textResult}`);
+      } else setResult(result.getText());
+    },
+    onError(err) {
+      console.log(err);
+      /* router.back(); */
     },
   });
 

@@ -1,0 +1,31 @@
+.container {
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.locationTitle {
+  font-size: 35px;
+  line-height: 45px;
+  font-weight: 700;
+}
+
+.locationAddress {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 500;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.categoriesTitle {
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-style: italic;
+}

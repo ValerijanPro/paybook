@@ -1,0 +1,46 @@
+.button {
+  text-align: center;
+  text-transform: uppercase;
+  padding: 15px 25px;
+  background-color: var(--button-color);
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 20px;
+  border: 1px solid black;
+  animation: shake 2s ease infinite;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5 !important;
+}
+
+.button:hover {
+  color: var(--button-color);
+  background-color: #fff;
+  border: 1px solid var(--button-color);
+}
+
+.button:focus {
+  opacity: 0.8;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px) rotate(3deg);
+  }
+  50% {
+    transform: translateX(3px) rotate(-3deg);
+  }
+  75% {
+    transform: translateX(-3px) rotate(3deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

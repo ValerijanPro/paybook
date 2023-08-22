@@ -1,0 +1,16 @@
+.container {
+    width: 100vw;
+    height: 300vh;
+    position: absolute;
+    background-color: #fff;
+    z-index: 9999999;
+}
+
+.loader{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -5%;
+}

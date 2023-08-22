@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 :root {
   --main-color: #02081a;
@@ -7,14 +6,14 @@
   --third-color: #bcbfbc;
   --fourth-color: #000000;
   --fifth-color: #e8e8e9;
- 
+  --button-color: #243662;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 html,
@@ -25,11 +24,7 @@ body {
 
 body {
   color: var(--fourth-color);
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--main-color))
-    )
+  background: linear-gradient(to bottom, transparent, rgb(var(--main-color)))
     rgb(var(--background-start-rgb));
 }
 
@@ -44,7 +39,6 @@ a {
   }
 }
 
-
 form {
   width: 300px;
   height: 350px;
@@ -53,8 +47,6 @@ form {
   border-radius: 25px;
   background-color: var(--secondary-color);
 }
-
-
 
 label {
   display: block;
@@ -69,7 +61,7 @@ input {
   border: 1px solid var(--third-color);
   border-radius: 25px;
   font-size: 14px;
-   background-color: var(--third-color)
+  background-color: var(--third-color);
 }
 input::placeholder {
   color: var(--fourth-color); /* Set the desired color */
@@ -78,7 +70,11 @@ input::placeholder {
 button {
   width: 100%;
   padding: 10px;
-  background: linear-gradient(to bottom, var(--fourth-color), var(--third-color));
+  background: linear-gradient(
+    to bottom,
+    var(--fourth-color),
+    var(--third-color)
+  );
   color: white;
   border: none;
   border-radius: 25px;

@@ -5,10 +5,19 @@
   justify-content: center;
   height: 100vh;
   flex-direction: column;
+  background-color: var(--third-color);
 }
 
 .scanButton {
   padding: 10px 20px;
   background-color: red;
   color: white;
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 60px;
+  margin-left: 25px;
 }
