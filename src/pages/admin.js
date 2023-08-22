@@ -80,17 +80,15 @@ function AdminPage() {
 
   const tryLogin = async () => {
     try {
-      const response = await fetch('https://arliving.herokuapp.com/arliving/pb_login_and_get_categories', {
+      const response = await fetch('https://arliving.herokuapp.com/arliving/pb_log_in_restaurant', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Add any other headers here if needed
         },
 
         body: JSON.stringify({
-          title: 'Sample Post Title',
-          body: 'This is the content of the post.',
-          userId: 1,
+          user_name: username,
+          password: password
           //ovo otkomentarisi kad API dobijes od Paje
           /*
           username: 'username',
@@ -99,13 +97,16 @@ function AdminPage() {
         
       });
 
-      if (!response.ok) {
+      if (response.error) {
         throw new Error('Request failed');
       }
 
       const responseData = await response.json();
       setUser(responseData);
       console.log("Successful login!");
+      console.log(responseData.id)
+      sessionStorage.setItem("restaurant", JSON.stringify(responseData));
+      console.log(sessionStorage.getItem("restaurant"))
       
     } catch (error) {
       setError('An error occurred while fetching data');
@@ -153,12 +154,14 @@ function AdminPage() {
           </div>
         </div>
         {error && (
-          <p
+          <p style={{ marginLeft: '5px',  marginRight: '4px',  marginBottom:'-15px', display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center' }}
             className={`${styles.error} ${isMovingRight ? styles.moveUp : ""} ${
               isMovingLeft ? styles.moveDown : ""
             }`}
           >
-            Please enter both username and password
+            <span className={styles.textCenter}>Please enter both username and password</span>
           </p>
         )}
         <div className={styles.loadingWrapper}>
