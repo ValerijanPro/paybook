@@ -104,7 +104,7 @@ function AdminPage() {
       const responseData = await response.json();
       setUser(responseData);
       console.log("Successful login!");
-      console.log(responseData.id)
+      console.log(responseData.id);
       sessionStorage.setItem("restaurant", JSON.stringify(responseData));
       console.log(sessionStorage.getItem("restaurant"))
       

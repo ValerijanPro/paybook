@@ -1,9 +1,14 @@
 
 
 
-POST https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant 
+POST https://arliving.herokuapp.com/arliving/pb_create_order
 content-type: application/json
 
 {
-    "restaurant_id":1
+    "restaurant_id":1,
+    "order":[
+        {"table":15, "quantity":1, "size":"small", "name":"Pasta bolognese"},
+        {"table":15, "quantity":2, "size":"big", "name":"Pizza carbonara"}
+    ]
 }
+
