@@ -13,6 +13,11 @@ function OrdersPage() {
   const [restaurant, setRestaurant] = useState({});
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
 
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchMoveX, setTouchMoveX] = useState(0);
+
+  const [swippedDirection, setSwippedDirection] = useState("");
+
   useEffect(() => {
     setRestaurant(JSON.parse(sessionStorage.getItem("restaurant")));
   }, []);
@@ -28,12 +33,13 @@ function OrdersPage() {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [restaurant, showWaitingScreen]);
 
   useEffect(() => {}, [orders]);
 
   const tryGetOrders = async () => {
     try {
+        console.log("Asd "+restaurant.id);
       const response = await fetch(
         "https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant",
         {
@@ -53,7 +59,7 @@ function OrdersPage() {
       }
 
       const responseData = await response.json();
-      //console.log("Try get orders");
+      console.log(responseData);
       if (
         responseData.message &&
         responseData.message == "No orders found for this restaurant"
@@ -87,16 +93,55 @@ function OrdersPage() {
             orders.pop();
         } */
 
-    setOrders([]);
+    
 
-    tryGetOrders().then(() => {});
+    
 
     setIsAnimating(true);
     setTimeout(() => {
       setIsAnimating(false);
-      colorIndex = (colorIndex + 1) % colorCycle.length;
-      setOrderColor(colorCycle[colorIndex]);
+      setOrders([]);
+      tryGetOrders().then(() => {
+        colorIndex = (colorIndex + 1) % colorCycle.length;
+        setOrderColor(colorCycle[colorIndex]);
+      });
+      
     }, 1000);
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchMoveX(0);
+  };
+
+  const handleTouchMove = (e) => {
+    const currentX = e.touches[0].clientX;
+    const deltaX = currentX - touchStartX;
+    setTouchMoveX(deltaX);
+  };
+
+  const handleTouchEnd = () => {
+    if (Math.abs(touchMoveX) > 50) {
+      // Swipe distance threshold to trigger action
+      if (touchMoveX < 0) {
+        // Swipe left
+        handleButtonClick();
+        setSwippedDirection("L");
+      }
+      if (touchMoveX > 0) {
+        // Swipe left
+        handleButtonClick();
+        setSwippedDirection("R");
+      }
+      // You can implement handling for swipe right here if needed
+    }
+    //setSwippedDirection("");
+    setTouchMoveX(0);
+  };
+
+  const orderStyle = {
+    transform: `translateX(${touchMoveX}px)`,
+    transition: touchMoveX === 0 ? "transform 0.3s ease-out" : "none",
   };
 
   return (
@@ -107,8 +152,14 @@ function OrdersPage() {
     >
       {!showWaitingScreen && (
         <div
-          style={{ backgroundColor: orderColor }}
-          className={`${styles.order} ${isAnimating ? styles.animating : ""}`}
+        style={{
+            ...orderStyle,
+            backgroundColor: orderColor,
+          }}
+          className={`${styles.order} ${isAnimating ? ((swippedDirection=="R")?styles.animatingRight:styles.animating) : ""}`}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <div className={styles.table}>Table: {firstOrder.table}</div>
           <div className={styles.orderBody}>
@@ -140,8 +191,11 @@ function OrdersPage() {
           </button>
         </div>
       )}
-      {showWaitingScreen && (
-        <div className={styles.noOrdersBody}>
+      {orders.length==0 && (
+        <div className={styles.noOrdersBody} 
+            style={{ paddingTop: '2rem',
+            width: '100%',
+            height: '100%' }}>
           <div
             style={{
               display: " flex",
@@ -157,7 +211,7 @@ function OrdersPage() {
               alt="Background"
             />
           </div>
-          <div
+          <div className={styles.upAndDown}
             style={{
               paddingTop: "100px",
               fontFamily: "Tahoma",
@@ -169,7 +223,8 @@ function OrdersPage() {
           >
             Waiting for orders
           </div>
-          <div
+          <div 
+          className={styles.shake}
             style={{
               display: " flex",
               justifyContent: "center",
@@ -180,7 +235,7 @@ function OrdersPage() {
           >
             <img
               style={{ width: "250px" }}
-              src="relaxing2.png"
+              src="temp2.png"
               alt="Background"
             />
           </div>

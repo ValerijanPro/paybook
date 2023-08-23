@@ -43,6 +43,10 @@
   .animating {
     animation: moveOrder 1s ease-in-out;
   }
+
+  .animatingRight{
+    animation: moveOrderRight 1s ease-in-out;
+  }
   
   @keyframes moveShadow {
     from {
@@ -69,6 +73,26 @@
       box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
     }
   }
+
+  @keyframes moveOrderRight {
+    to {
+      transform: translate(500px, 500px);
+      opacity: 0;
+    }
+    50% {
+      transform: translate(0);
+      opacity: 1;
+      box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+    }
+    from {
+      transform: translate(0, 20px);
+      opacity: 1;
+      box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+    }
+  }
+  
+
+  
   
   .table {
     display: flex;
@@ -89,9 +113,7 @@
   }
 
   .noOrdersBody{
-    padding-top: 2rem;
-    width: 100%;
-    height: 100%;
+    
   }
   
   .orderProduct {
@@ -101,4 +123,32 @@
     border: 1px solid var(--main-color);
     border-radius: 25px;
   }
+
+  .shake {
+    animation: shakeAnimation 2s infinite;
+  }
+
+  @keyframes shakeAnimation {
+    0%, 100% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+  }
+
+
+  .upAndDown {
+    animation: upAndDownAnimation 2s infinite;
+  }
+
+  @keyframes upAndDownAnimation {
+    0%,100% {
+      transform: translate(0, 20px);
+    }
+    50% {
+      transform: translate(0, -20px);
+    }
+  }
+
   
