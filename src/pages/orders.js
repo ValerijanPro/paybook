@@ -17,7 +17,7 @@ function OrdersPage() {
     setRestaurant(JSON.parse(sessionStorage.getItem("restaurant")));
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const intervalId = setInterval(() => {
       console.log("2s " + showWaitingScreen);
       if (showWaitingScreen && restaurant) {

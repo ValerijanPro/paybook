@@ -15,7 +15,23 @@ export const getCategoriesForCode = async (code) => {
       qr_url: code,
     });
     if (response?.data) {
-      console.log(response.data);
+      return response.data;
+    }
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+export const getItemsForCategory = async (restaurantId, categoryId) => {
+  try {
+    const response = await api.post(
+      `/pb_get_products_by_restaurant_and_category`,
+      {
+        restaurant_id: Number.parseInt(restaurantId),
+        category_id: Number.parseInt(categoryId),
+      }
+    );
+    if (response?.data) {
       return response.data;
     }
   } catch (err) {

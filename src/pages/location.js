@@ -4,6 +4,7 @@ import { getCategoriesForCode } from "./api/api";
 import Loader from "@/components/Loader";
 import styles from "../styles/Location.module.css";
 import CategoryItem from "@/components/CategoryItem";
+import Navigation from "@/components/Navigation";
 
 const Location = () => {
   const router = useRouter();
@@ -27,14 +28,22 @@ const Location = () => {
   if (!categories || !locationInfo) return <Loader />;
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.locationTitle}>{locationInfo.name}</h1>
-      <h2 className={styles.locationAddress}>{locationInfo.address}</h2>
-      <div className={styles.categories}>
-        <h3 className={styles.categoriesTitle}>Choose category</h3>
-        {categories.map((item) => (
-          <CategoryItem key={item.id} item={item} />
-        ))}
+    <div>
+      <Navigation />
+      <div className={styles.container}>
+        <img className={styles.image} alt="logo" src={locationInfo.image} />
+        <h1 className={styles.locationTitle}>{locationInfo.name}</h1>
+        <h2 className={styles.locationAddress}>{locationInfo.address}</h2>
+        <div className={styles.categories}>
+          <h3 className={styles.categoriesTitle}>Choose category</h3>
+          {categories.map((item) => (
+            <CategoryItem
+              locationId={locationInfo.id}
+              key={item.id}
+              item={item}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

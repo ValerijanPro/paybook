@@ -6,13 +6,13 @@
 }
 
 .locationTitle {
-  font-size: 35px;
+  font-size: 22px;
   line-height: 45px;
   font-weight: 700;
 }
 
 .locationAddress {
-  font-size: 20px;
+  font-size: 15px;
   line-height: 25px;
   font-weight: 500;
 }
@@ -29,4 +29,13 @@
   font-size: 20px;
   margin-bottom: 15px;
   font-style: italic;
+}
+
+.image {
+  width: 150px;
+  height: 80px;
+  object-fit: contain;
+  display: flex;
+  align-self: center;
+  margin-top: 70px;
 }

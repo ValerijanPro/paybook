@@ -1,0 +1,41 @@
+.increaseInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.4rem 0;
+  border-radius: 8px;
+}
+
+.input {
+  width: 98%;
+  text-align: center;
+  margin: 0 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--button-color) !important;
+  background-color: var(--paybook-color);
+}
+
+.input:focus {
+  border: none !important;
+  outline: none !important;
+}
+
+.input:active {
+  border: none !important;
+  outline: none !important;
+}
+
+.button {
+  border: none;
+  background: #d4bc40 !important;
+  cursor: pointer;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.icon {
+}

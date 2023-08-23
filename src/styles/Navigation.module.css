@@ -1,0 +1,38 @@
+.container {
+  height: 70px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--paybook-color);
+  justify-content: space-between;
+  padding: 0 15px;
+  position: fixed;
+  width: 100%;
+}
+
+.logo {
+  height: 85%;
+  width: 80px;
+  object-fit: contain;
+}
+
+.cart {
+  width: 30px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cartIcon {
+  color: var(--button-color);
+}
+.cartItemsNumber {
+  color: #fff;
+  position: absolute;
+  font-size: 10px;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-20%);
+}

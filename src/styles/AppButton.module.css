@@ -9,7 +9,7 @@
   font-weight: bolder;
   font-size: 20px;
   border: 1px solid black;
-  animation: shake 2s ease infinite;
+  /*   animation: shake 2s ease infinite; */
 }
 
 .disabled {
@@ -17,11 +17,11 @@
   opacity: 0.5 !important;
 }
 
-.button:hover {
+/* .button:hover {
   color: var(--button-color);
   background-color: #fff;
   border: 1px solid var(--button-color);
-}
+} */
 
 .button:focus {
   opacity: 0.8;
