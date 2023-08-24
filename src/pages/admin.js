@@ -165,7 +165,12 @@ function AdminPage() {
           </p>
         )}
         <div className={styles.loadingWrapper}>
-          {showLoadingIcon && <div style={{ display:'flex' }}><div className={styles.ldshourglass}></div><div className={styles.ldshourglass}></div><div className={styles.ldshourglass}></div><div className={styles.ldshourglass}></div><div className={styles.ldshourglass}></div></div> }
+          {showLoadingIcon && (
+            <div className={styles.wineGlassesWrapper}>
+              <div className={`${styles.wineGlass} ${styles.leftWineGlass}`}></div>
+              <div className={`${styles.wineGlass} ${styles.rightWineGlass}`}></div>
+            </div>
+          )}
         </div>
         <button
           type="button"
