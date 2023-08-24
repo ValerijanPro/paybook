@@ -56,11 +56,11 @@
   }
   
   .animating {
-    animation: moveOrder 1s ease-in-out;
+    animation: moveOrder 1s forwards;
   }
 
   .animatingRight{
-    animation: moveOrderRight 1s ease-in-out;
+    animation: moveOrderRight 1s forwards;
   }
   
   @keyframes moveShadow {

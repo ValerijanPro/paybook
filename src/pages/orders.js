@@ -107,8 +107,13 @@ function OrdersPage() {
         colorIndex = (colorIndex + 1) % colorCycle.length;
         setOrderColor(colorCycle[colorIndex]);
         setIsAnimating(false);
+        
       });
+      //setIsAnimating(false);
       setOrders([]);
+      //setTimeout(() => {setOrders([]);}, 10)
+      //setOrders([]);
+      
       
       
     }, 1000);
@@ -152,10 +157,10 @@ function OrdersPage() {
   return (
     <div
       className={`${styles.container} ${
-        showWaitingScreen  ? styles.noBackground : ""
+       showWaitingScreen ? styles.noBackground : ""
       }`}
     >
-      {!showWaitingScreen  && (
+      { !showWaitingScreen  && (
         <div
         style={{
             ...orderStyle,
@@ -196,7 +201,7 @@ function OrdersPage() {
           </button>
         </div>
       )}
-      {orders.length === 0 && (
+      {showWaitingScreen && (
         <div className={styles.noOrdersBody}>
           <div
             className={styles.imageContainer}
