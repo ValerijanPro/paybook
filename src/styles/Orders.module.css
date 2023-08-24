@@ -14,8 +14,8 @@
     background-image: none;
   }
   .order {
-    width: 350px;
-    height: 800px;
+    width: 86%;
+    height: 90%;
     padding: 20px;
     border: 1px solid var(--main-color);
     border-radius: 25px;
@@ -33,7 +33,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
   }
+
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  
   
   .break {
     height: 30px;

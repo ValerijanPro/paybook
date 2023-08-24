@@ -183,7 +183,7 @@ function OrdersPage() {
           </div>
           <div className={styles.break}></div>
           <button
-            style={{ position: "absolute", bottom: "70px", width: "300px" }}
+            style={{ position: "absolute", bottom: "5%", width: "85%" }}
             onClick={handleButtonClick}
             type="button"
           >
@@ -191,50 +191,41 @@ function OrdersPage() {
           </button>
         </div>
       )}
-      {orders.length==0 && (
-        <div className={styles.noOrdersBody} 
-            style={{ paddingTop: '2rem',
-            width: '100%',
-            height: '100%' }}>
+      {orders.length === 0 && (
+        <div className={styles.noOrdersBody}>
           <div
+            className={styles.imageContainer}
             style={{
-              display: " flex",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: "30px",
-              paddingBottom: "50px",
+              paddingTop: "5%",
+              paddingBottom: "5%",
             }}
           >
             <img
-              style={{ width: "250px" }}
+              className={styles.image}
               src={restaurant.image}
               alt="Background"
             />
           </div>
-          <div className={styles.upAndDown}
+          <div
+            className={`${styles.upAndDown} ${styles.centeredText}`}
             style={{
-              paddingTop: "100px",
+              paddingTop: "5%",
               fontFamily: "Tahoma",
-              fontSize: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              fontSize: "4vh",
             }}
           >
             Waiting for orders
           </div>
-          <div 
-          className={styles.shake}
+          <div
+            className={`${styles.shake} ${styles.imageContainer}`}
             style={{
-              display: " flex",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: "170px",
-              paddingBottom: "50px",
+              paddingTop: "15%",
+              paddingBottom: "15%",
             }}
           >
             <img
-              style={{ width: "250px" }}
+              className={styles.image}
+              style={{ width: "60vw" }}
               src="temp2.png"
               alt="Background"
             />
