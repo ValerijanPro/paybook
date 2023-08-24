@@ -1,19 +1,20 @@
 import Navigation from "@/components/Navigation";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getItemsForCategory } from "./api/api";
 import styles from "../styles/Category.module.css";
 import Loader from "@/components/Loader";
 import ProductItem from "@/components/ProductItem";
 import { BiSolidChevronLeftCircle } from "react-icons/bi";
-import SingleProduct from "@/components/SingleProduct";
+import CartContext from "@/context/cart";
 
 const CategoryPage = () => {
   const router = useRouter();
-  const { locationId, categoryId } = router.query;
+  const { locationId, categoryId, tableNumber } = router.query;
   const [products, setProducts] = useState();
   const [locationInfo, setLocationInfo] = useState();
-  const [selectedProduct, setSelectedProduct] = useState();
+
+  const { cart, setCart } = useContext(CartContext);
 
   const getCategoryItems = async () => {
     const data = await getItemsForCategory(locationId, categoryId);
@@ -27,53 +28,71 @@ const CategoryPage = () => {
     if (locationId && categoryId) getCategoryItems();
   }, [router.query]);
 
+  useEffect(() => {
+    if (locationId) {
+      const storageCart = JSON.parse(
+        localStorage.getItem(`cart-${locationId}`)
+      );
+      if (storageCart) setCart(storageCart);
+    }
+  }, [locationId]);
+
+  useEffect(() => {
+    if (cart) {
+      localStorage.setItem(`cart-${locationId}`, JSON.stringify(cart));
+    }
+  }, [cart]);
+
   if (!products || !locationInfo) return <Loader />;
 
   return (
     <div className={styles.container}>
-      <Navigation />
+      <Navigation locationId={locationId} table={tableNumber} />
 
       <div
         className={styles.backButton}
         onClick={() => {
-          if (!selectedProduct) {
-            router.back();
-          } else setSelectedProduct();
+          router.back();
         }}
       >
-        <BiSolidChevronLeftCircle size={25} className={styles.backIcon} />
+        <BiSolidChevronLeftCircle size={28} className={styles.backIcon} />
       </div>
-      {!selectedProduct ? (
-        <div className={styles.content}>
-          <div className={styles.titleContainer}>
-            <img
-              alt="location"
-              src={locationInfo.image}
-              className={styles.logo}
-            />
-            <h1 className={styles.title}>
-              Wählen Sie bitte einen Artikel aus {locationInfo.name}
-            </h1>
-          </div>
-          <div className={styles.products}>
-            {products.map((item) => {
-              return (
-                <ProductItem
-                  onClick={() => {
-                    setSelectedProduct(item);
-                  }}
-                  key={item.id}
-                  item={item}
-                />
-              );
-            })}
-          </div>
+      <div className={styles.content}>
+        <div className={styles.titleContainer}>
+          <img
+            alt="location"
+            src={locationInfo.image}
+            className={styles.logo}
+          />
+          <h1 className={styles.title}>
+            Wählen Sie bitte einen Artikel aus {locationInfo.name}
+          </h1>
         </div>
-      ) : (
-        <SingleProduct item={selectedProduct} />
-      )}
+        <div className={styles.products}>
+          {products.map((item) => {
+            return (
+              <ProductItem
+                onClick={() => {
+                  localStorage.setItem("selectedProduct", JSON.stringify(item));
+                  setTimeout(() => {
+                    router.push({
+                      pathname: "/product",
+                      query: {
+                        locationId: locationId,
+                        tableNumber: tableNumber,
+                      },
+                    });
+                  }, 250);
+                }}
+                key={item.id}
+                item={item}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default CategoryPage;
+export default React.memo(CategoryPage);

@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import styles from "../../styles/IncreaseInput.module.css";
 
 const IncreaseInput = ({ setCount, min, count }) => {
-  const [value, setValue] = useState(count);
-
   const handleIncrement = () => {
-    setValue(value + 1);
-    setCount(value + 1);
+    setCount(count + 1);
   };
 
   const handleDecrement = () => {
-    if (value > min) {
-      setValue(value - 1);
-      setCount(value - 1);
+    if (count > min) {
+      setCount(count - 1);
     }
   };
 
   const handleInputChange = (event) => {
     const inputValue = parseInt(event.target.value);
-    setValue(inputValue);
+    setCount(inputValue);
   };
+
+  useEffect(() => {
+    if (!count) setCount(min);
+  }, [count]);
 
   return (
     <div className={styles.increaseInput}>
@@ -30,7 +30,7 @@ const IncreaseInput = ({ setCount, min, count }) => {
       <input
         type="number"
         className={styles.input}
-        value={value}
+        value={count}
         onChange={handleInputChange}
       />
       <button className={styles.button} onClick={handleIncrement}>

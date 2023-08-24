@@ -2,10 +2,10 @@
 
 :root {
   --main-color: #02081a;
-  --secondary-color: #f4ececf5;
+  --secondary-color: #222222;
   --third-color: #bcbfbc;
-  --fourth-color: #000000;
-  --fifth-color: #e8e8e9;
+  --fourth-color: #ffffff;
+  --fifth-color: #000000;
   --button-color: #243662;
   --paybook-color: #e7db9d;
 }
@@ -17,10 +17,32 @@
   font-family: "Lato", sans-serif;
 }
 
+[data-theme="dark"] {
+  --main-color: #02081a;
+  --secondary-color: #f4ececf5;
+  --third-color: #bcbfbc;
+  --fourth-color: #000000;
+  --fifth-color: #e8e8e9;
+  --button-color: #243662;
+  --paybook-color: #e7db9d;
+}
+
+:root[data-theme="custom"] {
+  --main-color: #02081a;
+  --secondary-color: #222222;
+  --third-color: #bcbfbc;
+  --fourth-color: #ffffff;
+  --fifth-color: #000000;
+  --button-color: #243662;
+  --paybook-color: #e7db9d;
+}
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: var(--fourth-color);
+  color: var(--fifth-color) !important;
 }
 
 body {

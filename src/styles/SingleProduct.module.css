@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 120px;
+  min-height: 100vh;
 }
 
 .image {
@@ -12,10 +13,12 @@
   height: 80vw;
   max-width: 230px;
   max-height: 230px;
+  border-radius: 10px;
 }
 
 .titleContainer {
   margin-top: 20px;
+  padding: 3px;
 }
 
 .title {
@@ -54,8 +57,12 @@
   animation: none;
   position: fixed;
   bottom: 30px;
-  font-size: 16px;
-  text-transform: none;
+  font-size: 16px !important;
+  text-transform: none !important;
+}
+
+.button:active {
+  opacity: 0.6;
 }
 
 .singleIncButton {
@@ -85,5 +92,19 @@
 .optionPrice {
   font-size: 15px;
   font-weight: 600;
+  color: var(--button-color);
+}
+
+.backButton {
+  position: fixed;
+  top: 85px;
+  left: 15px;
+}
+
+.backButton:active {
+  opacity: 0.6;
+}
+
+.backIcon {
   color: var(--button-color);
 }
