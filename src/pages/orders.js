@@ -13,6 +13,11 @@ function OrdersPage() {
   const [restaurant, setRestaurant] = useState({});
   const [showWaitingScreen, setShowWaitingScreen] = useState(true);
 
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchMoveX, setTouchMoveX] = useState(0);
+
+  const [swippedDirection, setSwippedDirection] = useState("");
+
   useEffect(() => {
     setRestaurant(JSON.parse(sessionStorage.getItem("restaurant")));
   }, []);
@@ -28,12 +33,13 @@ function OrdersPage() {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [restaurant, showWaitingScreen]);
 
   useEffect(() => {}, [orders]);
 
   const tryGetOrders = async () => {
     try {
+        console.log("Asd "+restaurant.id);
       const response = await fetch(
         "https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant",
         {
@@ -53,11 +59,12 @@ function OrdersPage() {
       }
 
       const responseData = await response.json();
-      //console.log("Try get orders");
+      console.log(responseData);
       if (
         responseData.message &&
         responseData.message == "No orders found for this restaurant"
       ) {
+
         console.log("show waiting screen = true");
         setShowWaitingScreen(true);
         return;
@@ -87,28 +94,82 @@ function OrdersPage() {
             orders.pop();
         } */
 
-    setOrders([]);
+    
 
-    tryGetOrders().then(() => {});
+    
 
     setIsAnimating(true);
+    
+   
     setTimeout(() => {
-      setIsAnimating(false);
-      colorIndex = (colorIndex + 1) % colorCycle.length;
-      setOrderColor(colorCycle[colorIndex]);
+      
+      tryGetOrders().then(() => {
+        colorIndex = (colorIndex + 1) % colorCycle.length;
+        setOrderColor(colorCycle[colorIndex]);
+        setIsAnimating(false);
+        
+      });
+      //setIsAnimating(false);
+      setOrders([]);
+      //setTimeout(() => {setOrders([]);}, 10)
+      //setOrders([]);
+      
+      
+      
     }, 1000);
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchMoveX(0);
+  };
+
+  const handleTouchMove = (e) => {
+    const currentX = e.touches[0].clientX;
+    const deltaX = currentX - touchStartX;
+    setTouchMoveX(deltaX);
+  };
+
+  const handleTouchEnd = () => {
+    if (Math.abs(touchMoveX) > 50) {
+      // Swipe distance threshold to trigger action
+      if (touchMoveX < 0) {
+        // Swipe left
+        handleButtonClick();
+        setSwippedDirection("L");
+      }
+      if (touchMoveX > 0) {
+        // Swipe left
+        handleButtonClick();
+        setSwippedDirection("R");
+      }
+      // You can implement handling for swipe right here if needed
+    }
+    //setSwippedDirection("");
+    setTouchMoveX(0);
+  };
+
+  const orderStyle = {
+    transform: `translateX(${touchMoveX}px)`,
+    transition: touchMoveX === 0 ? "transform 0.3s ease-out" : "none",
   };
 
   return (
     <div
       className={`${styles.container} ${
-        showWaitingScreen ? styles.noBackground : ""
+       showWaitingScreen ? styles.noBackground : ""
       }`}
     >
-      {!showWaitingScreen && (
+      { !showWaitingScreen  && (
         <div
-          style={{ backgroundColor: orderColor }}
-          className={`${styles.order} ${isAnimating ? styles.animating : ""}`}
+        style={{
+            ...orderStyle,
+            backgroundColor: orderColor,
+          }}
+          className={`${styles.order} ${isAnimating ? ((swippedDirection=="R")?styles.animatingRight:styles.animating) : ""}`}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <div className={styles.table}>Table: {firstOrder.table}</div>
           <div className={styles.orderBody}>
@@ -132,7 +193,7 @@ function OrdersPage() {
           </div>
           <div className={styles.break}></div>
           <button
-            style={{ position: "absolute", bottom: "70px", width: "300px" }}
+            style={{ position: "absolute", bottom: "5%", width: "85%" }}
             onClick={handleButtonClick}
             type="button"
           >
@@ -143,44 +204,39 @@ function OrdersPage() {
       {showWaitingScreen && (
         <div className={styles.noOrdersBody}>
           <div
+            className={styles.imageContainer}
             style={{
-              display: " flex",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: "30px",
-              paddingBottom: "50px",
+              paddingTop: "5%",
+              paddingBottom: "5%",
             }}
           >
             <img
-              style={{ width: "250px" }}
+              className={styles.image}
               src={restaurant.image}
               alt="Background"
             />
           </div>
           <div
+            className={`${styles.upAndDown} ${styles.centeredText}`}
             style={{
-              paddingTop: "100px",
+              paddingTop: "5%",
               fontFamily: "Tahoma",
-              fontSize: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              fontSize: "4vh",
             }}
           >
             Waiting for orders
           </div>
           <div
+            className={`${styles.shake} ${styles.imageContainer}`}
             style={{
-              display: " flex",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: "170px",
-              paddingBottom: "50px",
+              paddingTop: "15%",
+              paddingBottom: "15%",
             }}
           >
             <img
-              style={{ width: "250px" }}
-              src="relaxing2.png"
+              className={styles.image}
+              style={{ width: "60vw" }}
+              src="temp2.png"
               alt="Background"
             />
           </div>

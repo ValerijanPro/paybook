@@ -74,45 +74,96 @@
     height: 20px;
     margin-left: 1rem;
   }
-  
 
-  .ldshourglass {
-    display: flex; /* Add this to make the spinner container a flex container */
-    justify-content: center; /* Horizontally center the spinner within its container */
+
+  .wineGlassesWrapper {
+    display: flex;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    height: 20px;
-    margin: 0 auto; /* Horizontally center the spinner within its parent container */
+    height: 60px; /* Increase the height for the spilled wine */
+    margin: 0 auto;
+    position: relative;
   }
-  .ldshourglass:after {
-    content: " ";
-    display: block;
-    border-radius: 50%;
-    width: 0;
-    height: 0;
-    margin: 8px;
-    box-sizing: border-box;
-    border: 15px solid var(--fourth-color);
-    border-color: var(--fourth-color) transparent var(--fourth-color) transparent;
-    animation: lds-hourglass 1.2s infinite;
+  
+  .wineGlass {
+    width: 20px;
+    height: 40px;
+    background-color: transparent;
+    position: absolute;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    transform-origin: bottom center; /* Change transform origin to bottom center */
+    z-index: 1;
   }
-  @keyframes lds-hourglass {
-    0% {
-      transform: rotate(0);
-      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  
+  .leftWineGlass {
+    animation: moveLeft 1s ease-in-out;
+  }
+  
+  .rightWineGlass {
+    animation: moveRight 1s ease-in-out;
+  }
+  
+  @keyframes moveLeft {
+    0%, 50% {
+      left: 0;
+      transform: rotate(0deg);
     }
-    50% {
-      transform: rotate(900deg);
-      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    40%, 60% {
+      transform: rotate(-10deg); /* Increase tilt angle */
+    }
+    50%, 100% {
+      left: 50%;
+      transform: rotate(0deg);
+    }
+  }
+  
+  @keyframes moveRight {
+    0%, 50% {
+      right: 0;
+      transform: rotate(0deg);
+    }
+    40%, 60% {
+      transform: rotate(10deg); /* Increase tilt angle */
+    }
+    50%, 100% {
+      right: 50%;
+      transform: rotate(0deg);
+    }
+  }
+  
+  .wineGlass:before {
+    content: "\1F377"; /* Unicode character for wine glass */
+    font-size: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .clashEffect {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    background-color: red; /* Change this to desired color */
+    opacity: 0;
+    transform-origin: bottom center; /* Set transform origin to bottom center */
+    animation: clashAnimation 0.2s ease-in-out forwards;
+  }
+  
+  @keyframes clashAnimation {
+    0% {
+      transform: translateY(0) rotate(0deg); /* Adjust for the desired tilt effect */
+      opacity: 0.6;
     }
     100% {
-      transform: rotate(1800deg);
+      transform: translateY(-10px) rotate(-5deg); /* Adjust for the desired tilt effect */
+      opacity: 0;
     }
   }
   
   .loadingWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px; /* Adjust margin as needed */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
