@@ -64,6 +64,7 @@ function OrdersPage() {
         responseData.message &&
         responseData.message == "No orders found for this restaurant"
       ) {
+
         console.log("show waiting screen = true");
         setShowWaitingScreen(true);
         return;
@@ -98,13 +99,17 @@ function OrdersPage() {
     
 
     setIsAnimating(true);
+    
+   
     setTimeout(() => {
-      setIsAnimating(false);
-      setOrders([]);
+      
       tryGetOrders().then(() => {
         colorIndex = (colorIndex + 1) % colorCycle.length;
         setOrderColor(colorCycle[colorIndex]);
+        setIsAnimating(false);
       });
+      setOrders([]);
+      
       
     }, 1000);
   };
@@ -147,10 +152,10 @@ function OrdersPage() {
   return (
     <div
       className={`${styles.container} ${
-        showWaitingScreen ? styles.noBackground : ""
+        showWaitingScreen  ? styles.noBackground : ""
       }`}
     >
-      {!showWaitingScreen && (
+      {!showWaitingScreen  && (
         <div
         style={{
             ...orderStyle,
