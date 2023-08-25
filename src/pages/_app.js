@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
     const lsCode = localStorage.getItem("lastCode");
     if (router.pathname != "/" && !router.pathname.includes("location")) {
       if (lsCode) {
-        router.push(`/location/code=?${lsCode}`);
+        router.push(`/location/?code=${lsCode}`);
       } else {
         router.push("/");
       }

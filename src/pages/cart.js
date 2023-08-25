@@ -36,7 +36,6 @@ const Cart = () => {
   };
 
   const handleOrder = async () => {
-    setLoading(true);
     const restaurantId = cart[0]?.locationId;
     const orders = cart
       .map((item) => {
@@ -49,13 +48,14 @@ const Cart = () => {
           };
       })
       .filter((n) => n);
-
     const orderBody = { restaurant_id: restaurantId, orders };
     const success = await createOrder(orderBody);
-    setLoading(false);
+    setCart([]);
+
     if (success) {
-      setCart([]);
-      router.back();
+      setTimeout(() => {
+        router.back();
+      }, 350);
     }
   };
 
