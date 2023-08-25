@@ -11,7 +11,6 @@ const Product = () => {
   useEffect(() => {
     const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
     setItem(selectedProduct);
-    console.log(selectedProduct);
 
     return () => {
       setItem();

@@ -37,10 +37,11 @@ const Location = () => {
   const getLoactionData = async () => {
     const data = await getCategoriesForCode(code);
     if (data) {
-      console.log(data.restaurant);
       changeTheme(data.restaurant);
-      setLocationInfo(data.restaurant);
-      setCategories(data.categories);
+      setTimeout(() => {
+        setLocationInfo(data.restaurant);
+        setCategories(data.categories);
+      }, 350);
     }
   };
 

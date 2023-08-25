@@ -5,10 +5,11 @@
   justify-content: center;
   height: 100vh;
   flex-direction: column;
+  background-color: var(--paybook-color);
 }
 
 .scanButton {
-  padding: 10px 20px;
+  padding: 12px 27px !important;
   color: white;
 }
 
@@ -16,6 +17,23 @@
   width: 200px;
   height: 200px;
   object-fit: contain;
-  margin-bottom: 60px;
-  margin-left: 25px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+
+.slogan {
+  max-width: 190px;
+  text-align: center;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.subButtonText {
+  margin-top: 7px;
+  font-size: 11px;
+}
+
+.qrIcon {
+  margin-bottom: -3px;
+  margin-left: 3px;
 }

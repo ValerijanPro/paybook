@@ -41,11 +41,11 @@
 .emptyCartLabel {
   padding-right: 5px;
   font-size: 11px;
-  color: var(--secondary-color);
+  color: var(--text-color);
 }
 
 .trashIcon {
-  color: var(--secondary-color);
+  color: var(--text-color);
 }
 
 .trashIcon:active {

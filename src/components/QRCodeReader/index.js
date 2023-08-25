@@ -10,7 +10,6 @@ const QRCodeReader = () => {
   const { ref } = useZxing({
     onResult(result) {
       const textResult = result.getText();
-      console.log(textResult);
       if (!textResult?.includes("http")) {
         router.push(`/location?code=${textResult}`);
       } else setResult(result.getText());

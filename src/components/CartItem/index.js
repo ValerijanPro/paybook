@@ -2,8 +2,6 @@ import React from "react";
 import styles from "../../styles/CartItem.module.css";
 
 const CartItem = ({ item }) => {
-  console.log(item);
-
   return (
     <div className={styles.container}>
       <img

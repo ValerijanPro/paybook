@@ -2,7 +2,7 @@
   width: 100vw;
   height: 300vh;
   position: absolute;
-  background-color: var(--fourth-color);
+  background-color: var(--background-color);
   z-index: 9999999;
 }
 
