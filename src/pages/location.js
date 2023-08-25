@@ -64,9 +64,6 @@ const Location = () => {
       getLoactionData();
       const number = extractAndCheck(code);
       setTableNumber(number);
-
-      const storageCart = JSON.parse(localStorage.getItem(`cart-${code}`));
-      if (storageCart) setCart(storageCart);
     }
   }, [code]);
 
