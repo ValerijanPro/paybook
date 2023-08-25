@@ -6,15 +6,14 @@ import { useEffect, useState } from "react";
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState([]);
   const router = useRouter();
-  const { code } = router.query;
 
   useEffect(() => {
     const lsCode = localStorage.getItem("lastCode");
-    if (router.pathname != "/") {
-      if (!code || !lsCode) {
-        router.push("/");
+    if (router.pathname != "/" && !router.pathname.includes("location")) {
+      if (lsCode) {
+        router.push(`/location/code=?${lsCode}`);
       } else {
-        router.push(`/location/${code || lsCode}`);
+        router.push("/");
       }
     }
   }, []);
