@@ -59,7 +59,7 @@ const Cart = () => {
     }
   };
 
-  if (loading || !getItemsNumber()) return <Loader order={true} />;
+  if (loading) return <Loader order={true} />;
 
   return (
     <div className={styles.cart}>

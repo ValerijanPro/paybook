@@ -11,6 +11,7 @@ const QRCodeReader = () => {
     onResult(result) {
       const textResult = result.getText();
       if (!textResult?.includes("http")) {
+        localStorage.setItem(`lastCode`, textResult);
         router.push(`/location?code=${textResult}`);
       } else setResult(result.getText());
     },

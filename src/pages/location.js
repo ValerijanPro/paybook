@@ -102,6 +102,7 @@ const Location = () => {
               key={item.id}
               item={item}
               tableNumber={tableNumber}
+              code={code}
             />
           ))}
         </div>
