@@ -39,6 +39,7 @@ const Location = () => {
     if (data) {
       changeTheme(data.restaurant);
       setTimeout(() => {
+        console.log(data.restaurant);
         setLocationInfo(data.restaurant);
         setCategories(data.categories);
       }, 350);

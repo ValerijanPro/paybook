@@ -50,8 +50,8 @@ const Cart = () => {
       .filter((n) => n);
     const orderBody = { restaurant_id: restaurantId, orders };
     const success = await createOrder(orderBody);
-    setCart([]);
     localStorage.removeItem(`cart-${restaurantId}`);
+    setCart([]);
 
     if (success) {
       setTimeout(() => {
@@ -83,8 +83,9 @@ const Cart = () => {
             </span>
             <FaTrashAlt
               onClick={() => {
+                localStorage.removeItem(`cart-${cart[0]?.locationId}`);
                 setCart([]);
-                localStorage.removeItem(`cart-${restaurantId}`);
+
                 setTimeout(() => {
                   router.back();
                 }, 350);
