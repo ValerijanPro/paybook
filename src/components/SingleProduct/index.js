@@ -65,7 +65,15 @@ const SingleProduct = ({ item, tableNumber, locationId }) => {
   const handleAddToBasket = () => {
     const basketArr = getStructeredBasketArr(selectedItems);
     setCart([...cart, ...basketArr]);
-    setSelectedItems();
+
+    if (onlyOnePrice) {
+      setSelectedItems({
+        [firstOption?.size]: {
+          count: 1,
+          pricePerUnit: firstOption?.price,
+        },
+      });
+    } else setSelectedItems();
 
     /*  Swal.fire({
       title: "Produkt(e) zum Warenkorb hinzugefügt",
@@ -236,7 +244,7 @@ const SingleProduct = ({ item, tableNumber, locationId }) => {
             })}
           </div>
         )}
-        {!noItems(selectedItems) /*  &&
+        {!noItems(selectedItems) || onlyOnePrice /*  &&
         !isEqual(selectedItems, preselectedItems) */ ? (
           <AppButton
             className={styles.button}
