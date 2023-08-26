@@ -39,6 +39,7 @@ const Location = () => {
     if (data) {
       changeTheme(data.restaurant);
       setTimeout(() => {
+        console.log(data.restaurant);
         setLocationInfo(data.restaurant);
         setCategories(data.categories);
       }, 350);
@@ -64,9 +65,6 @@ const Location = () => {
       getLoactionData();
       const number = extractAndCheck(code);
       setTableNumber(number);
-
-      const storageCart = JSON.parse(localStorage.getItem(`cart-${code}`));
-      if (storageCart) setCart(storageCart);
     }
   }, [code]);
 

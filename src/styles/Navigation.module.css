@@ -13,6 +13,7 @@
   height: 85%;
   width: 80px;
   object-fit: contain;
+  margin-top: 12px;
 }
 
 .cart {

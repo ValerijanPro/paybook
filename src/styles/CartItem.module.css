@@ -20,12 +20,12 @@
 .count {
   font-size: 12px;
   color: var(--text-color);
-  text-align: center;
   line-height: 20px;
 }
 
 .middleSection {
   padding: 0 10px;
+  width: 100%;
 }
 
 .title {

@@ -50,6 +50,7 @@ const Cart = () => {
       .filter((n) => n);
     const orderBody = { restaurant_id: restaurantId, orders };
     const success = await createOrder(orderBody);
+    localStorage.removeItem(`cart-${restaurantId}`);
     setCart([]);
 
     if (success) {
@@ -82,8 +83,12 @@ const Cart = () => {
             </span>
             <FaTrashAlt
               onClick={() => {
+                localStorage.removeItem(`cart-${cart[0]?.locationId}`);
                 setCart([]);
-                router.back();
+
+                setTimeout(() => {
+                  router.back();
+                }, 350);
               }}
               className={styles.trashIcon}
             />
