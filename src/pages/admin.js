@@ -9,24 +9,25 @@ function AdminPage() {
   const [password, setPassword] = useState("");
   const [isMovingRight, setIsMovingRight] = useState(false);
   const [isMovingLeft, setIsMovingLeft] = useState(false);
-  const [error, setError] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [showLoadingIcon, setShowLoadingIcon] = useState(false);
 
   const [user, setUser] = useState({});
   const router = useRouter();
 
   useEffect(() => {
-    if (error && (!isMovingRight || isMovingLeft)) {
+    console.log("fired")
+    if (showErrorMessage && (!isMovingRight || isMovingLeft)) {
       setIsMovingRight(true);
       setIsMovingLeft(false);
     }
-  }, [error]);
+  }, [showErrorMessage]);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
     if(password!="")
       {
-        setError(false);
+        setShowErrorMessage(false);
       setIsMovingRight(true);
       setIsMovingLeft(false);
       }
@@ -35,7 +36,7 @@ function AdminPage() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     if(username!=""){
-      setError(false);
+      setShowErrorMessage(false);
       setIsMovingRight(true);
       setIsMovingLeft(false);
     }
@@ -47,7 +48,7 @@ function AdminPage() {
   
   const handleButtonClick = () => {
     if (!username || !password) {
-      setError(true);
+      setShowErrorMessage(true);
       if (!isMovingRight && !isMovingLeft) {
         setIsMovingRight(true);
       } else if (isMovingRight) {
@@ -58,13 +59,16 @@ function AdminPage() {
         setIsMovingRight(true);
       }
     } else {
-      setError(false);
-      setIsMovingRight(true);
-      setIsMovingLeft(false);
+      
       // Implement your login logic here
       tryLogin().then(()=>{
+        console.log("Error ovde"+showErrorMessage);
+        if(showErrorMessage) return;
+        setShowErrorMessage(false);
+        setIsMovingRight(true);
+        setIsMovingLeft(false);
         setShowLoadingIcon(true);
-        setError(false);
+        setShowErrorMessage(false);
         //delay 1s onako cisto;
         setTimeout(() => {
           console.log("Logged in bro!");
@@ -97,11 +101,16 @@ function AdminPage() {
         
       });
 
-      if (response.error) {
-        throw new Error('Request failed');
-      }
+      
 
       const responseData = await response.json();
+      if (responseData.error) {
+        console.log("nema brt");
+        setShowErrorMessage(true);
+        setShowErrorMessage(true);
+        console.log("Error "+showErrorMessage)
+        return;
+      }
       setUser(responseData);
       console.log("Successful login!");
       console.log(responseData.id);
@@ -109,7 +118,7 @@ function AdminPage() {
       console.log(sessionStorage.getItem("restaurant"))
       
     } catch (error) {
-      setError('An error occurred while fetching data');
+      //setShowErrorMessage('An error occurred while fetching data');
     }
   };
 
@@ -153,7 +162,7 @@ function AdminPage() {
             />
           </div>
         </div>
-        {error && (
+        {showErrorMessage && (
           <p style={{ marginLeft: '5px',  marginRight: '4px',  marginBottom:'-15px', display: 'flex',
           justifyContent: 'center',
           alignItems: 'center' }}

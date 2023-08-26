@@ -9,10 +9,11 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const lsCode = localStorage.getItem("lastCode");
-    if (router.pathname != "/" && !router.pathname.includes("location")) {
+    if (router.pathname != "/" && !router.pathname.includes("location") && !router.pathname.includes("admin") && !router.pathname.includes("orders")) {
       if (lsCode) {
         router.push(`/location/?code=${lsCode}`);
-      } else {
+      }
+       else {
         router.push("/");
       }
     }

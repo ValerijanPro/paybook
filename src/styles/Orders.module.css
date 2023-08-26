@@ -14,8 +14,8 @@
   background-image: none;
 }
 .order {
-  width: 350px;
-  height: 800px;
+  width: 86%;
+  height: 90%;
   padding: 20px;
   border: 1px solid var(--main-color);
   border-radius: 25px;
@@ -42,7 +42,28 @@
 }
 
 .animating {
-  animation: moveOrder 1s ease-in-out;
+  animation: moveOrder 1s forwards;
+}
+
+.animatingRight{
+  animation: moveOrderRight 1s forwards;
+}
+
+@keyframes moveOrderRight {
+  to {
+    transform: translate(500px, 500px);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(0);
+    opacity: 1;
+    box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+  }
+  from {
+    transform: translate(0, 20px);
+    opacity: 1;
+    box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+  }
 }
 
 @keyframes moveShadow {
@@ -72,6 +93,33 @@
     opacity: 1;
     box-shadow: var(--main-color) 0px 0px 0px 2px inset,
       var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+  }
+}
+
+.shake {
+  animation: shakeAnimation 2s infinite;
+}
+
+@keyframes shakeAnimation {
+  0%, 100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+
+.upAndDown {
+  animation: upAndDownAnimation 2s infinite;
+}
+
+@keyframes upAndDownAnimation {
+  0%,100% {
+    transform: translate(0, 20px);
+  }
+  50% {
+    transform: translate(0, -20px);
   }
 }
 
@@ -105,4 +153,45 @@
   width: 100%;
   border: 1px solid var(--main-color);
   border-radius: 25px;
+}
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.bellIconContainer {
+  position: absolute;
+  top: 0%; /* Adjust the top distance as needed */
+  right: 0%; /* Adjust the right distance as needed */
+  z-index: 10; /* Ensure it's above other content */
+}
+
+.bellIcon {
+  font-size: 45px; /* Adjust the font size as needed */
+  color: black; /* Set the icon color */
+}
+
+
+@keyframes shakeBell {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.shakeBellAnimation {
+  animation: shakeBell 0.5s forwards infinite;
 }

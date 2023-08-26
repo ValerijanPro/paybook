@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Orders.module.css";
+import {BiSolidBell, BiSolidBellRing} from "react-icons/bi"
 
 const colorCycle = ["var(--secondary-color)", "#F5F5DCee"];
 let colorIndex = 0;
+
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [firstOrder, setFirstOrder] = useState({});
@@ -17,6 +19,8 @@ function OrdersPage() {
   const [touchMoveX, setTouchMoveX] = useState(0);
 
   const [swippedDirection, setSwippedDirection] = useState("");
+
+  const [isBellRinging, setIsBellRinging] = useState(false);
 
   useEffect(() => {
     setRestaurant(JSON.parse(sessionStorage.getItem("restaurant")));
@@ -69,6 +73,19 @@ function OrdersPage() {
         setShowWaitingScreen(true);
         return;
       }
+
+      //check for calls
+      let call = responseData.call;
+      if (true) {
+        setIsBellRinging(true);
+        setTimeout(() => {
+          setIsBellRinging(false);
+        }, 1000); // Ring for 1 second
+        // add the called table to the notification list
+      }
+
+      //get the orders
+
       let tmpArray = responseData.order;
       let tmp = [];
 
@@ -160,6 +177,15 @@ function OrdersPage() {
        showWaitingScreen ? styles.noBackground : ""
       }`}
     >
+      <div className={styles.bellIconContainer}>
+      <div className={isBellRinging ? styles.shakeBellAnimation : ""}>
+        {isBellRinging ? (
+          <BiSolidBellRing className={styles.bellIcon} />
+        ) : (
+          <BiSolidBell className={styles.bellIcon} />
+        )}
+      </div>
+    </div>
       { !showWaitingScreen  && (
         <div
         style={{
