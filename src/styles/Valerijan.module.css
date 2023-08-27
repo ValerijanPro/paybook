@@ -1,29 +1,11 @@
-.cardStack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+.draggableSquare {
+  position: absolute;
+  cursor: grab;
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  z-index: 100;
 }
-
-.card {
-  width: 200px;
-  height: 100px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  margin-top: -20px;
-  box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px
-}
-
-.active {
-  transform: translateY(0);
-  z-index: 1;
+.draggableSquare.grabbing {
+  cursor: grabbing;
 }

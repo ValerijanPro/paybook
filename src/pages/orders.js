@@ -13,7 +13,7 @@ function OrdersPage() {
   const [orderColor, setOrderColor] = useState(colorCycle[colorIndex]);
 
   const [restaurant, setRestaurant] = useState({});
-  const [showWaitingScreen, setShowWaitingScreen] = useState(true);
+  //const [showWaitingScreen, setShowWaitingScreen] = useState(true);
 
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchMoveX, setTouchMoveX] = useState(0);
@@ -22,14 +22,18 @@ function OrdersPage() {
 
   const [isBellRinging, setIsBellRinging] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dataArray, setDataArray] = useState([]);
+  
+
   useEffect(() => {
     setRestaurant(JSON.parse(sessionStorage.getItem("restaurant")));
   }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("2s " + showWaitingScreen);
-      if (showWaitingScreen && restaurant) {
+      console.log("2s ");
+      if ( restaurant) {
         tryGetOrders().then(() => {});
       }
     }, 2000);
@@ -37,13 +41,13 @@ function OrdersPage() {
     return () => {
       clearInterval(intervalId);
     };
-  }, [restaurant, showWaitingScreen]);
+  }, [restaurant]);
 
   useEffect(() => {}, [orders]);
 
   const tryGetOrders = async () => {
     try {
-        console.log("Asd "+restaurant.id);
+        //console.log("Asd "+restaurant.id);
       const response = await fetch(
         "https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant",
         {
@@ -70,18 +74,21 @@ function OrdersPage() {
       ) {
 
         console.log("show waiting screen = true");
-        setShowWaitingScreen(true);
+        //setShowWaitingScreen(true);
         return;
       }
 
       //check for calls
+      console.log(JSON.stringify(responseData));
       let call = responseData.call;
-      if (true) {
+      if (call) {
         setIsBellRinging(true);
         setTimeout(() => {
           setIsBellRinging(false);
         }, 1000); // Ring for 1 second
         // add the called table to the notification list
+        setDataArray(prevDataArray => [...prevDataArray, { text: "Table " + call }]);
+   
       }
 
       //get the orders
@@ -93,11 +100,16 @@ function OrdersPage() {
         tmp.push(x);
       }
 
-      console.log("show waiting screen = false");
-      setFirstOrder(tmp.at(0));
-      setOrders(tmp);
+      
+      if(tmp.length!=0) {
+        console.log("show waiting screen = false");
+       // setShowWaitingScreen(false);
+        setOrders(tmp);
+        setFirstOrder(tmp.at(0));
+      }
+     
       //console.log(orders.length+" orders");
-      setShowWaitingScreen(false);
+      
     } catch (error) {
       //setError('An error occurred while fetching data');
     }
@@ -166,6 +178,29 @@ function OrdersPage() {
     setTouchMoveX(0);
   };
 
+  const handleBellIconClick = async () => {
+    if (!isModalOpen) {
+      try {
+        // Fetch data here and set it to modalData
+        //const response = await fetch('your_data_fetching_url');
+        //const responseData = await response.json();
+        //setModalData(responseData);
+      } catch (error) {
+        // Handle error
+      }
+    }
+    
+    setIsModalOpen(!isModalOpen);
+    console.log("isModalOpen: "+isModalOpen);
+  };
+
+  const handleModalElementClick = (index) => {
+    // Remove the clicked element from the data array
+    const updatedDataArray = [...dataArray];
+    updatedDataArray.splice(index, 1);
+    setDataArray(updatedDataArray);
+  };
+
   const orderStyle = {
     transform: `translateX(${touchMoveX}px)`,
     transition: touchMoveX === 0 ? "transform 0.3s ease-out" : "none",
@@ -174,19 +209,31 @@ function OrdersPage() {
   return (
     <div
       className={`${styles.container} ${
-       showWaitingScreen ? styles.noBackground : ""
+       orders.length==0 ? styles.noBackground : ""
       }`}
     >
-      <div className={styles.bellIconContainer}>
-      <div className={isBellRinging ? styles.shakeBellAnimation : ""}>
-        {isBellRinging ? (
-          <BiSolidBellRing className={styles.bellIcon} />
-        ) : (
-          <BiSolidBell className={styles.bellIcon} />
-        )}
-      </div>
+      <div className={`${styles.logo} ${styles.topLeft}`}>
+        <img
+          //className={styles.image}
+          style={{width:"20%", height:"20%"}}
+          src="logoTransparent.png" // Replace with your image URL
+          alt="Image"
+        />
     </div>
-      { !showWaitingScreen  && (
+      <div className={`${styles.bellIconContainer} ${(isModalOpen || isBellRinging)? styles.modalOpen : ""}`}>
+  <div
+    className={isBellRinging ? styles.shakeBellAnimation : ""}
+    onClick={handleBellIconClick}
+  >
+    {isBellRinging ? (
+      <BiSolidBellRing className={styles.bellIcon} />
+    ) : (
+      <BiSolidBell className={styles.bellIcon} />
+    )}
+  </div>
+</div>
+
+      { orders.length!=0  && (
         <div
         style={{
             ...orderStyle,
@@ -227,7 +274,7 @@ function OrdersPage() {
           </button>
         </div>
       )}
-      {showWaitingScreen && (
+      {orders.length == 0 && (
         <div className={styles.noOrdersBody}>
           <div
             className={styles.imageContainer}
@@ -245,14 +292,14 @@ function OrdersPage() {
           <div
             className={`${styles.upAndDown} ${styles.centeredText}`}
             style={{
-              paddingTop: "5%",
+              paddingTop: "20%",
               fontFamily: "Tahoma",
               fontSize: "4vh",
             }}
           >
             Waiting for orders
           </div>
-          <div
+          {/* <div
             className={`${styles.shake} ${styles.imageContainer}`}
             style={{
               paddingTop: "15%",
@@ -265,9 +312,29 @@ function OrdersPage() {
               src="temp2.png"
               alt="Background"
             />
-          </div>
+          </div>*/}
         </div>
       )}
+      {isModalOpen && (
+  <div className={`${styles.modal} ${isModalOpen ? styles.fadeIn : styles.fadeOut}`}>
+  
+    <div className={styles.modalHeader}>
+      Tables that called:
+    </div>
+    <div className={styles.modalBody}>
+      {dataArray.map((item, index) => (
+        <div
+          key={index}
+          className={styles.modalElement}
+          onClick={() => handleModalElementClick(index)}
+        >
+          {item.text} {/* Display your data here */}
+        </div>
+      ))}
+    </div>
+  
+</div>
+)}
     </div>
   );
 }

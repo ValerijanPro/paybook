@@ -5,7 +5,7 @@
   justify-content: center;
   height: 100vh;
   background-color: var(--main-color);
-  background-image: url("../../public/background4.png"); /* Relative path to your image */
+  background-image: url("../../public/background4.jpg"); /* Relative path to your image */
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -169,10 +169,15 @@
 
 .bellIconContainer {
   position: absolute;
-  top: 0%; /* Adjust the top distance as needed */
-  right: 0%; /* Adjust the right distance as needed */
-  z-index: 10; /* Ensure it's above other content */
+  top: 0%;
+  right: 0%;
+  z-index: 101;
 }
+
+.modalOpen .bellIcon {
+  color: #c60606; /* Adjust the color value as needed */
+}
+
 
 .bellIcon {
   font-size: 45px; /* Adjust the font size as needed */
@@ -194,4 +199,91 @@
 
 .shakeBellAnimation {
   animation: shakeBell 0.5s forwards infinite;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--main-color);
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  background-color: var(--secondary-color);
+  z-index: 100;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.fadeIn {
+  opacity: 1;
+  visibility: visible;
+}
+.modal.fadeIn {
+  flex-direction: column;
+}
+
+.fadeOut {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+
+.modalElement:hover {
+  background-color: #f0f0f0;
+}
+
+.modalBody {
+  margin-top: 20%;
+  width: 100%;
+  height: 70%;
+  max-height: 70%; /* Set max-height to 50% */
+  overflow-y: auto; /* Add vertical scrollbar when content exceeds height */
+}
+
+.modalElement {
+  width: 80%;
+  padding: 10px;
+  background-color: var(--third-color);
+  margin: 3% auto; /* Center vertically and add margin for spacing */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.modalHeader {
+  position: absolute;
+  top:0;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10%;
+  min-height: 10%;
+ 
+}
+
+/* Add these styles for the floating bell icon */
+.floatingBellIcon {
+  position: absolute;
+  cursor: grab;
+  user-drag: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+.floatingBellIcon.grabbing {
+  cursor: grabbing;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  margin-left: -4%;
 }

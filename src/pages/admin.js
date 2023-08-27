@@ -62,21 +62,24 @@ function AdminPage() {
       
       // Implement your login logic here
       tryLogin().then(()=>{
-        console.log("Error ovde"+showErrorMessage);
-        if(showErrorMessage) return;
-        setShowErrorMessage(false);
-        setIsMovingRight(true);
-        setIsMovingLeft(false);
-        setShowLoadingIcon(true);
-        setShowErrorMessage(false);
-        //delay 1s onako cisto;
-        setTimeout(() => {
+        setTimeout(()=>{
+          console.log("Error ovde"+showErrorMessage);
+          if(showErrorMessage) return;
+          setShowErrorMessage(false);
+          setIsMovingRight(true);
+          setIsMovingLeft(false);
+          setShowLoadingIcon(true);
+          setShowErrorMessage(false);
+          //delay 1s onako cisto;
+          setTimeout(() => {
+            console.log("Logged in bro!");
+            //ASK:
+            //staviti u neki sessionStorage user-a?
+            router.push('/orders');
+          }, 1000);
           console.log("Logged in bro!");
-          //ASK:
-          //staviti u neki sessionStorage user-a?
-          router.push('/orders');
-        }, 1000);
-        console.log("Logged in bro!");
+        }, 1000)
+       
         
       });
     }
@@ -108,7 +111,7 @@ function AdminPage() {
         console.log("nema brt");
         setShowErrorMessage(true);
         setShowErrorMessage(true);
-        console.log("Error "+showErrorMessage)
+        console.log("Hladno mi je "+showErrorMessage)
         return;
       }
       setUser(responseData);
