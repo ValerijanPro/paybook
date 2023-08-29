@@ -1,5 +1,3 @@
-
-
 POST https://arliving.herokuapp.com/arliving/pb_create_order
 content-type: application/json
 
