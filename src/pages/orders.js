@@ -271,10 +271,7 @@ function OrdersPage() {
        orderArray.length==0 ? styles.noBackground : ""
       }`}
     >
-      {orderArray.length==0?"true":"false"} ++
-      {orderArray.length} ++
-      {orders.length}++
-      {orderIndex}
+
       <div className={`${styles.logo} ${styles.topLeft}`}>
         <img
           //className={styles.image}
