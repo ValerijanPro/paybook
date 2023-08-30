@@ -75,7 +75,7 @@ export const createOrder = async (body) => {
 export const callWaiter = async (restaurantId, table) => {
   try {
     const response = await api.post(
-      `/pb_get_products_by_restaurant_and_category`,
+      `/pb_call_waiter`,
       {
         restaurant_id: Number.parseInt(restaurantId),
         table: table,

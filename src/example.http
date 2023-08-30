@@ -1,10 +1,13 @@
-POST https://arliving.herokuapp.com/arliving/pb_create_order
+
+
+
+POST https://arliving.herokuapp.com/arliving/pb_call_waiter
 content-type: application/json
 
 {
     "restaurant_id":1,
-    "order":[
-        {"table":6, "name":"Pasta carbonara", "size":"small"},
-        {"table":6, "name":"Pasta bolognese", "size":"big"}
-    ]
+    "table":2
 }
+
+
+

@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: var(--main-color);
-  background-image: url("../../public/backgroundT.png"); /* Relative path to your image */
+  background-color: white;
+  /*background-image: url("../../public/backgroundT.png"); /* Relative path to your image */
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -14,9 +14,10 @@
   background-image: none;
 }
 .order {
-  width: 86%;
-  height: 90%;
+  width: 80%;
+  height: 83%;
   padding: 20px;
+  margin-top: 8%;
   border: 1px solid var(--main-color);
   border-radius: 25px;
   background-color: var(--secondary-color);
@@ -47,6 +48,27 @@
 
 .animatingRight{
   animation: moveOrderRight 1s forwards;
+}
+
+.animatingDown{
+  animation: moveOrderDown 1s forwards;
+}
+
+@keyframes moveOrderDown {
+  to {
+    transform: translate(0, 500px);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(0);
+    opacity: 1;
+    box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+  }
+  from {
+    transform: translate(0, 20px);
+    opacity: 1;
+    box-shadow: var(--main-color) 0px 0px 0px 2px inset, var(--third-color) 15px -15px 0px -3px, var(--main-color) 15px -15px;
+  }
 }
 
 @keyframes moveOrderRight {
@@ -109,6 +131,10 @@
   }
 }
 
+.ordersCount{
+  font-size: 20px;
+  margin-top: 3%;
+}
 
 .upAndDown {
   animation: upAndDownAnimation 2s infinite;

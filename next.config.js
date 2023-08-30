@@ -3,4 +3,23 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+module.exports = {
+  reactStrictMode: true,
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(wav|mp3)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'static/audio/',
+            publicPath: '/_next/static/audio/',
+          },
+        },
+      ],
+    });
+
+    return config;
+  },
+};
