@@ -7,8 +7,8 @@ content-type: application/json
 {
     "restaurant_id":1,
     "orders":[
-        {"table":17, "quantity":1, "size":"small", "name":"Pasta brt"},
-        {"table":167, "quantity":2, "size":"big", "name":"Pizza carbonara"}
+        {"table":15, "quantity":1, "size":"small", "name":"Pasta brt"},
+        {"table":15, "quantity":2, "size":"big", "name":"Pizza carbonara"}
     ]
 }
 

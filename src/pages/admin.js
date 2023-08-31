@@ -44,7 +44,7 @@ function AdminPage() {
   const handleButtonClick = () => {
     if (!username || !password) {
       setShowErrorMessage(true);
-      setErrorMessage("Please enter both username and password");
+      setErrorMessage("Bitte geben Sie sowohl Benutzername als auch Passwort ein");
       if (!isMovingRight && !isMovingLeft) {
         setIsMovingRight(true);
       } else if (isMovingRight) {
@@ -84,7 +84,7 @@ function AdminPage() {
       const responseData = await response.json();
       if (responseData.error) {
         setShowErrorMessage(true);
-        setErrorMessage("Wrong username or password. Please enter correct credentials");
+        setErrorMessage("Falscher Benutzername oder falsches Passwort.");
         if (!isMovingRight && !isMovingLeft) {
           setIsMovingRight(true);
         } else if (isMovingRight) {
@@ -121,7 +121,7 @@ function AdminPage() {
           <label htmlFor="username" className={styles.inputLabel}>
             <div className={styles.labelRow}>
               <AiOutlineUser style={{ height: "100%", width: "100%" }} />
-              <div className={styles.inputText}>Username:</div>
+              <div className={styles.inputText}>Benutzername:</div>
             </div>
           </label>
           <div className={styles.inputWrapper}>
@@ -130,7 +130,7 @@ function AdminPage() {
               id="username"
               value={username}
               onChange={handleUsernameChange}
-              placeholder="Enter your username"
+              placeholder="Geben Sie Ihren Benutzernamen ein"
             />
           </div>
         </div>
@@ -138,7 +138,7 @@ function AdminPage() {
           <label htmlFor="password" className={styles.inputLabel}>
             <div className={styles.labelRow}>
               <AiFillLock style={{ height: "100%", width: "100%" }} />
-              <div className={styles.inputText}>Password:</div>
+              <div className={styles.inputText}>Passwort:</div>
             </div>
           </label>
           <div className={styles.inputWrapper}>
@@ -147,7 +147,7 @@ function AdminPage() {
               id="password"
               value={password}
               onChange={handlePasswordChange}
-              placeholder="Enter your password"
+              placeholder="Geben Sie Ihr Passwort ein"
             />
           </div>
         </div>
@@ -189,7 +189,7 @@ function AdminPage() {
           } ${isMovingLeft ? styles.moveRight : ""}`}
           onClick={handleButtonClick}
         >
-          Login
+          Anmelden
         </button>
       </form>
     </div>
