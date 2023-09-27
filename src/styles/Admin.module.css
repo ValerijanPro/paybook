@@ -5,9 +5,9 @@
   justify-content: center;
   height: 100vh;
   background-color: var(--main-color);
-  background-image: url('../../public/background4.png'); /* Relative path to your image */
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url('../../public/backgroundT.png'); /* Relative path to your image */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .formGroup {

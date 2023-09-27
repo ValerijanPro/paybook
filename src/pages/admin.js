@@ -9,6 +9,7 @@ function AdminPage() {
   const [password, setPassword] = useState("");
   const [isMovingRight, setIsMovingRight] = useState(false);
   const [isMovingLeft, setIsMovingLeft] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [showLoadingIcon, setShowLoadingIcon] = useState(false);
 
@@ -16,7 +17,6 @@ function AdminPage() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("fired");
     if (showErrorMessage && (!isMovingRight || isMovingLeft)) {
       setIsMovingRight(true);
       setIsMovingLeft(false);
@@ -44,6 +44,7 @@ function AdminPage() {
   const handleButtonClick = () => {
     if (!username || !password) {
       setShowErrorMessage(true);
+      setErrorMessage("Bitte geben Sie sowohl Benutzername als auch Passwort ein");
       if (!isMovingRight && !isMovingLeft) {
         setIsMovingRight(true);
       } else if (isMovingRight) {
@@ -82,15 +83,20 @@ function AdminPage() {
 
       const responseData = await response.json();
       if (responseData.error) {
-        console.log("nema brt");
         setShowErrorMessage(true);
-        console.log("Hladno mi je " + showErrorMessage);
+        setErrorMessage("Falscher Benutzername oder falsches Passwort.");
+        if (!isMovingRight && !isMovingLeft) {
+          setIsMovingRight(true);
+        } else if (isMovingRight) {
+          setIsMovingRight(false);
+          setIsMovingLeft(true);
+        } else if (isMovingLeft) {
+          setIsMovingLeft(false);
+          setIsMovingRight(true);
+        }
       } else {
         setUser(responseData);
-        console.log("Successful login!");
-        console.log(responseData.id);
         sessionStorage.setItem("restaurant", JSON.stringify(responseData));
-        console.log(sessionStorage.getItem("restaurant"));
         setIsMovingRight(true);
         setIsMovingLeft(false);
         setShowLoadingIcon(true);
@@ -98,9 +104,10 @@ function AdminPage() {
 
         //ASK:
         //staviti u neki sessionStorage user-a?
-        router.push("/orders");
-
-        console.log("Logged in bro!");
+        setTimeout(()=>{
+          router.push("/orders");
+        }, 1000)
+        
       }
     } catch (error) {
       //setShowErrorMessage('An error occurred while fetching data');
@@ -114,7 +121,7 @@ function AdminPage() {
           <label htmlFor="username" className={styles.inputLabel}>
             <div className={styles.labelRow}>
               <AiOutlineUser style={{ height: "100%", width: "100%" }} />
-              <div className={styles.inputText}>Username:</div>
+              <div className={styles.inputText}>Benutzername:</div>
             </div>
           </label>
           <div className={styles.inputWrapper}>
@@ -123,7 +130,7 @@ function AdminPage() {
               id="username"
               value={username}
               onChange={handleUsernameChange}
-              placeholder="Enter your username"
+              placeholder="Geben Sie Ihren Benutzernamen ein"
             />
           </div>
         </div>
@@ -131,7 +138,7 @@ function AdminPage() {
           <label htmlFor="password" className={styles.inputLabel}>
             <div className={styles.labelRow}>
               <AiFillLock style={{ height: "100%", width: "100%" }} />
-              <div className={styles.inputText}>Password:</div>
+              <div className={styles.inputText}>Passwort:</div>
             </div>
           </label>
           <div className={styles.inputWrapper}>
@@ -140,7 +147,7 @@ function AdminPage() {
               id="password"
               value={password}
               onChange={handlePasswordChange}
-              placeholder="Enter your password"
+              placeholder="Geben Sie Ihr Passwort ein"
             />
           </div>
         </div>
@@ -159,7 +166,7 @@ function AdminPage() {
             }`}
           >
             <span className={styles.textCenter}>
-              Please enter both username and password
+              {errorMessage}
             </span>
           </p>
         )}
@@ -182,7 +189,7 @@ function AdminPage() {
           } ${isMovingLeft ? styles.moveRight : ""}`}
           onClick={handleButtonClick}
         >
-          Login
+          Anmelden
         </button>
       </form>
     </div>

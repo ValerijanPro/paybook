@@ -2,18 +2,23 @@ import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Orders.module.css";
 import {BiSolidBell, BiSolidBellRing} from "react-icons/bi"
+import bellSound from '../../public/bellSound.wav'; // Replace with the actual path to your .wav file
 
 const colorCycle = ["var(--secondary-color)", "#F5F5DCee"];
 let colorIndex = 0;
+let addedFlag = false;
 
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
-  const [firstOrder, setFirstOrder] = useState({});
+  //const [firstOrder, setFirstOrder] = useState({});
+
+  const [orderArray, setOrderArray] = useState([]);
+  const [orderIndex, setOrderIndex] = useState(-1);
+
   const [isAnimating, setIsAnimating] = useState(false);
   const [orderColor, setOrderColor] = useState(colorCycle[colorIndex]);
 
   const [restaurant, setRestaurant] = useState({});
-  //const [showWaitingScreen, setShowWaitingScreen] = useState(true);
 
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchMoveX, setTouchMoveX] = useState(0);
@@ -43,11 +48,33 @@ function OrdersPage() {
     };
   }, [restaurant]);
 
-  useEffect(() => {}, [orders]);
+  useEffect(() => {
+    
+  }, [orderArray]);
+
+  useEffect(() => {
+    // Create an audio element
+    const audioElement = new Audio(bellSound);
+    audioElement.loop = true; // Set the loop property to true
+
+    // Play or pause the audio based on the isBellRinging flag
+    if (isBellRinging) {
+      audioElement.play();
+    } else {
+      audioElement.pause();
+      audioElement.currentTime = 0; // Reset the audio to the beginning
+    }
+
+    return () => {
+      // Cleanup: Pause the audio and release resources when component unmounts
+      audioElement.pause();
+      audioElement.currentTime = 0;
+    };
+  }, [isBellRinging]);
 
   const tryGetOrders = async () => {
     try {
-        //console.log("Asd "+restaurant.id);
+        console.log("Asd "+orderArray.length);
       const response = await fetch(
         "https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant",
         {
@@ -83,11 +110,12 @@ function OrdersPage() {
       let call = responseData.call;
       if (call) {
         setIsBellRinging(true);
-        setTimeout(() => {
-          setIsBellRinging(false);
-        }, 1000); // Ring for 1 second
+        /*setInterval(()=>{
+          setIsBellRinging(!isBellRinging);
+        }, 1000)*/
+        
         // add the called table to the notification list
-        setDataArray(prevDataArray => [...prevDataArray, { text: "Table " + call }]);
+        setDataArray(prevDataArray => [...prevDataArray, { text: "Tisch " + call }]);
    
       }
 
@@ -100,12 +128,21 @@ function OrdersPage() {
         tmp.push(x);
       }
 
-      
       if(tmp.length!=0) {
-        console.log("show waiting screen = false");
-       // setShowWaitingScreen(false);
-        setOrders(tmp);
-        setFirstOrder(tmp.at(0));
+        console.log("Here "+orderArray.length);
+        if(orderArray.length==0){
+          
+          setOrders(tmp);
+ 
+          setOrderArray(prevOrderArray => [...prevOrderArray, tmp]);
+
+          setOrderIndex(0);
+          return;
+        }
+        
+        setOrderArray(prevOrderArray => [...prevOrderArray, tmp]);
+
+        
       }
      
       //console.log(orders.length+" orders");
@@ -116,35 +153,33 @@ function OrdersPage() {
   };
 
   const handleButtonClick = () => {
-    //clear current orders
-    /*  let x = orders.length;
-        while(x>0){
-            x = x-1;
-            orders.pop();
-        } */
-
-    
-
-    
-
+    setSwippedDirection("D");
     setIsAnimating(true);
     
-   
     setTimeout(() => {
+      console.log("pre "+orderArray.length);
+      //setOrderArray([]);
+      const arrayCopy = orderArray.slice();
+      const updatedArray = arrayCopy.filter((_, index) => index !== orderIndex);
+      setOrderArray(updatedArray);
+      console.log("new array length "+updatedArray.length);
+      if(updatedArray.length==0) {
+        console.log("no left");
+        setOrderIndex(-1);
+        setOrders([]);
+      }
+      else{
+        console.log("yes left");
+        setOrderIndex((orderIndex+1)%updatedArray.length);
+        setOrders(orderArray[orderIndex]);
+      }
       
       tryGetOrders().then(() => {
-        colorIndex = (colorIndex + 1) % colorCycle.length;
-        setOrderColor(colorCycle[colorIndex]);
         setIsAnimating(false);
-        
       });
-      //setIsAnimating(false);
-      setOrders([]);
-      //setTimeout(() => {setOrders([]);}, 10)
-      //setOrders([]);
-      
-      
-      
+
+      console.log("posle "+orderArray.length);
+     
     }, 1000);
   };
 
@@ -164,14 +199,36 @@ function OrdersPage() {
       // Swipe distance threshold to trigger action
       if (touchMoveX < 0) {
         // Swipe left
-        handleButtonClick();
+        
+        //handleButtonClick();
         setSwippedDirection("L");
+        setIsAnimating(true);
+        setTimeout(() => {
+          colorIndex = (colorIndex + 1) % colorCycle.length;
+          setOrderColor(colorCycle[colorIndex]);
+          setIsAnimating(false);
+          if(orderIndex != 0)
+            setOrderIndex((orderIndex - 1) % (orderArray.length));
+          else{
+            setOrderIndex(orderArray.length - 1);
+          }
+        }, 1000)
+        
       }
       if (touchMoveX > 0) {
-        // Swipe left
-        handleButtonClick();
+        // Swipe right
+        //handleButtonClick();
         setSwippedDirection("R");
+        setIsAnimating(true);
+        setTimeout(() => {
+          colorIndex = (colorIndex + 1) % colorCycle.length;
+          setOrderColor(colorCycle[colorIndex]);
+          setIsAnimating(false);
+          setOrderIndex((orderIndex + 1) % (orderArray.length));
+        }, 1000)
+        
       }
+      
       // You can implement handling for swipe right here if needed
     }
     //setSwippedDirection("");
@@ -179,6 +236,8 @@ function OrdersPage() {
   };
 
   const handleBellIconClick = async () => {
+    setIsBellRinging(false);
+    console.log("Pavle Vujisic "+isBellRinging)
     if (!isModalOpen) {
       try {
         // Fetch data here and set it to modalData
@@ -209,9 +268,10 @@ function OrdersPage() {
   return (
     <div
       className={`${styles.container} ${
-       orders.length==0 ? styles.noBackground : ""
+       orderArray.length==0 ? styles.noBackground : ""
       }`}
     >
+
       <div className={`${styles.logo} ${styles.topLeft}`}>
         <img
           //className={styles.image}
@@ -232,21 +292,20 @@ function OrdersPage() {
     )}
   </div>
 </div>
-
-      { orders.length!=0  && (
+      { orderArray.length!=0 && orders.length!=0  && (
         <div
         style={{
             ...orderStyle,
             backgroundColor: orderColor,
           }}
-          className={`${styles.order} ${isAnimating ? ((swippedDirection=="R")?styles.animatingRight:styles.animating) : ""}`}
+          className={`${styles.order} ${isAnimating ? ((swippedDirection=="R")?styles.animatingRight:(swippedDirection=="L")?styles.animating:styles.animatingDown) : ""}`}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className={styles.table}>Table: {firstOrder.table}</div>
+          <div className={styles.table}>Tisch: {orderArray[orderIndex][0].table}</div>
           <div className={styles.orderBody}>
-            {orders.map((order, index) => (
+            {orderArray[orderIndex].map((order, index) => (
               <div className={styles.orderProduct} key={index}>
                 <div
                   style={{
@@ -258,8 +317,8 @@ function OrdersPage() {
                   {order.name}
                 </div>
                 <div style={{ display: "flex" }}>
-                  <div style={{ width: "50%" }}>Quantity: {order.quantity}</div>
-                  <div style={{ width: "50%" }}>Size: {order.size}</div>
+                  <div style={{ width: "50%" }}>Menge: {order.quantity}</div>
+                  <div style={{ width: "50%" }}>Größe: {order.size}</div>
                 </div>
               </div>
             ))}
@@ -270,11 +329,15 @@ function OrdersPage() {
             onClick={handleButtonClick}
             type="button"
           >
-            Finish
+            Beenden
           </button>
         </div>
       )}
-      {orders.length == 0 && (
+      {orderArray.length != 0 && 
+      (<div className={styles.ordersCount}>
+         {orderArray.length > 0 ? `1/${orderArray.length}` : ''}
+      </div>)}
+      {orderArray.length == 0 && (
         <div className={styles.noOrdersBody}>
           <div
             className={styles.imageContainer}
@@ -292,14 +355,14 @@ function OrdersPage() {
           <div
             className={`${styles.upAndDown} ${styles.centeredText}`}
             style={{
-              paddingTop: "20%",
+              paddingTop: "5%",  
               fontFamily: "Tahoma",
               fontSize: "4vh",
             }}
           >
-            Waiting for orders
+            Auf Bestellungen warten
           </div>
-          {/* <div
+           <div
             className={`${styles.shake} ${styles.imageContainer}`}
             style={{
               paddingTop: "15%",
@@ -312,14 +375,14 @@ function OrdersPage() {
               src="temp2.png"
               alt="Background"
             />
-          </div>*/}
+          </div>
         </div>
       )}
       {isModalOpen && (
   <div className={`${styles.modal} ${isModalOpen ? styles.fadeIn : styles.fadeOut}`}>
   
     <div className={styles.modalHeader}>
-      Tables that called:
+    Tische, die gerufen haben:
     </div>
     <div className={styles.modalBody}>
       {dataArray.map((item, index) => (
@@ -328,7 +391,7 @@ function OrdersPage() {
           className={styles.modalElement}
           onClick={() => handleModalElementClick(index)}
         >
-          {item.text} {/* Display your data here */}
+          {item.text}
         </div>
       ))}
     </div>
