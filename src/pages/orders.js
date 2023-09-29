@@ -321,7 +321,7 @@ function OrdersPage() {
                 </div>
                 <div style={{display: "flex"}}>
                   <div style={{ width: "50%" }}>Anmerkungen:</div>
-                  <div style={{ width: "50%" }}>{order.notes}</div>
+                  <div style={{ width: "50%" }}>{order.waiter_notice}</div>
                  
                 </div>
               </div>
