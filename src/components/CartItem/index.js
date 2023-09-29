@@ -12,12 +12,14 @@ const CartItem = ({ item }) => {
       <div className={styles.middleSection}>
         <h1 className={styles.title}>{item.name}</h1>
         {item.size ? <h5 className={styles.count}>{item.size}</h5> : null}
+        {item.waiterNotice?.length ? (
+          <h5 className={styles.notice}>Hinweis: {item.waiterNotice}</h5>
+        ) : null}
       </div>
       <div className={styles.rightSection}>
         <h3 className={styles.price}>
           {item.quantity} X {item.pricePerUnit}€
         </h3>
-        {/*   <h5 className={styles.count}>Die Menge: {item.quantity}</h5> */}
       </div>
     </div>
   );

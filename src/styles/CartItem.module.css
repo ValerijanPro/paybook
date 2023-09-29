@@ -58,3 +58,12 @@
 .plusIcon {
   color: var(--button-color);
 }
+
+.notice {
+  font-size: 11px;
+  color: gray;
+  overflow: hidden; /* Hide content that exceeds the max-height */
+  display: -webkit-box; /* Required for Webkit line-clamp */
+  -webkit-line-clamp: 2; /* Limit to 3 lines for Webkit browsers */
+  -webkit-box-orient: vertical;
+}

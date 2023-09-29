@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { BiSolidChevronLeftCircle } from "react-icons/bi";
 import Navigation from "../Navigation";
+import AppInput from "../AppInput";
 
 const SingleProduct = ({ item, tableNumber, locationId }) => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const SingleProduct = ({ item, tableNumber, locationId }) => {
   const { cart, setCart } = useContext(CartContext);
 
   const [selectedItems, setSelectedItems] = useState();
+  const [waiterNotice, setWaiterNotice] = useState("");
 
   const productName = item.name;
   const productId = item.id;
@@ -56,6 +58,7 @@ const SingleProduct = ({ item, tableNumber, locationId }) => {
           pricePerUnit: pricePerUnit,
           productImage: productImage,
           locationId: locationId,
+          waiterNotice: waiterNotice,
         });
       }
     }
@@ -244,6 +247,13 @@ const SingleProduct = ({ item, tableNumber, locationId }) => {
             })}
           </div>
         )}
+        <AppInput
+          containerClassName={styles.inputContainer}
+          className={styles.input}
+          value={waiterNotice}
+          onChange={(val) => setWaiterNotice(val)}
+          placeholder={"Hinweis für den Kellner"}
+        />
         {!noItems(selectedItems) || onlyOnePrice /*  &&
         !isEqual(selectedItems, preselectedItems) */ ? (
           <AppButton

@@ -45,6 +45,7 @@ const Cart = () => {
             quantity: item.quantity,
             size: item.size,
             name: item.name,
+            waiter_notice: item.waiterNotice,
           };
       })
       .filter((n) => n);
