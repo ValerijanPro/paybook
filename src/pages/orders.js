@@ -37,7 +37,6 @@ function OrdersPage() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("2s ");
       if ( restaurant) {
         tryGetOrders().then(() => {});
       }
@@ -74,7 +73,6 @@ function OrdersPage() {
 
   const tryGetOrders = async () => {
     try {
-        console.log("Asd "+orderArray.length);
       const response = await fetch(
         "https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant",
         {
@@ -94,19 +92,19 @@ function OrdersPage() {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
+
       if (
         responseData.message &&
         responseData.message == "No orders found for this restaurant"
       ) {
 
-        console.log("show waiting screen = true");
+        
         //setShowWaitingScreen(true);
         return;
       }
 
       //check for calls
-      console.log(JSON.stringify(responseData));
+      
       let call = responseData.call;
       if (call) {
         setIsBellRinging(true);
@@ -120,7 +118,6 @@ function OrdersPage() {
       }
 
       //get the orders
-
       let tmpArray = responseData.order;
       let tmp = [];
 
@@ -129,7 +126,7 @@ function OrdersPage() {
       }
 
       if(tmp.length!=0) {
-        console.log("Here "+orderArray.length);
+
         if(orderArray.length==0){
           
           setOrders(tmp);
@@ -145,7 +142,7 @@ function OrdersPage() {
         
       }
      
-      //console.log(orders.length+" orders");
+   
       
     } catch (error) {
       //setError('An error occurred while fetching data');
@@ -157,19 +154,18 @@ function OrdersPage() {
     setIsAnimating(true);
     
     setTimeout(() => {
-      console.log("pre "+orderArray.length);
       //setOrderArray([]);
       const arrayCopy = orderArray.slice();
       const updatedArray = arrayCopy.filter((_, index) => index !== orderIndex);
       setOrderArray(updatedArray);
-      console.log("new array length "+updatedArray.length);
+
       if(updatedArray.length==0) {
-        console.log("no left");
+
         setOrderIndex(-1);
         setOrders([]);
       }
       else{
-        console.log("yes left");
+
         setOrderIndex((orderIndex+1)%updatedArray.length);
         setOrders(orderArray[orderIndex]);
       }
@@ -177,8 +173,6 @@ function OrdersPage() {
       tryGetOrders().then(() => {
         setIsAnimating(false);
       });
-
-      console.log("posle "+orderArray.length);
      
     }, 1000);
   };
@@ -204,14 +198,19 @@ function OrdersPage() {
         setSwippedDirection("L");
         setIsAnimating(true);
         setTimeout(() => {
+          const arrayCopy = orderArray.slice();
+          const updatedArray = arrayCopy.filter((_, index) => index !== orderIndex);
+          setOrderArray(updatedArray);
+          
+
           colorIndex = (colorIndex + 1) % colorCycle.length;
           setOrderColor(colorCycle[colorIndex]);
           setIsAnimating(false);
-          if(orderIndex != 0)
+          /*if(orderIndex != 0)
             setOrderIndex((orderIndex - 1) % (orderArray.length));
           else{
             setOrderIndex(orderArray.length - 1);
-          }
+          }*/
         }, 1000)
         
       }
@@ -237,7 +236,7 @@ function OrdersPage() {
 
   const handleBellIconClick = async () => {
     setIsBellRinging(false);
-    console.log("Pavle Vujisic "+isBellRinging)
+    
     if (!isModalOpen) {
       try {
         // Fetch data here and set it to modalData
@@ -250,7 +249,7 @@ function OrdersPage() {
     }
     
     setIsModalOpen(!isModalOpen);
-    console.log("isModalOpen: "+isModalOpen);
+ 
   };
 
   const handleModalElementClick = (index) => {
@@ -319,6 +318,11 @@ function OrdersPage() {
                 <div style={{ display: "flex" }}>
                   <div style={{ width: "50%" }}>Menge: {order.quantity}</div>
                   <div style={{ width: "50%" }}>Größe: {order.size}</div>
+                </div>
+                <div style={{display: "flex"}}>
+                  <div style={{ width: "50%" }}>Anmerkungen:</div>
+                  <div style={{ width: "50%" }}>{order.notes}</div>
+                 
                 </div>
               </div>
             ))}
