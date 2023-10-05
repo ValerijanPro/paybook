@@ -2,9 +2,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const api = axios.create({
-  baseURL: "https://arliving.herokuapp.com/arliving",
+  baseURL: "https://digimont-b0236e96b22c.herokuapp.com/django",
   headers: {
-    /*       'X-API-KEY': API_KEY, */
+    "X-API-KEY": process.env.X_API_KEY,
     Accept: "application/json",
     "Content-Type": "application/json",
   },
@@ -78,13 +78,10 @@ export const callWaiter = async (restaurantId, table) => {
     table: table,
   });
   try {
-    const response = await api.post(
-      `/pb_call_waiter`,
-      {
-        restaurant_id: Number.parseInt(restaurantId),
-        table: table,
-      }
-    );
+    const response = await api.post(`/pb_call_waiter`, {
+      restaurant_id: Number.parseInt(restaurantId),
+      table: table,
+    });
     if (response?.data) {
       return response.data;
     }

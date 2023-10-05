@@ -44,7 +44,9 @@ function AdminPage() {
   const handleButtonClick = () => {
     if (!username || !password) {
       setShowErrorMessage(true);
-      setErrorMessage("Bitte geben Sie sowohl Benutzername als auch Passwort ein");
+      setErrorMessage(
+        "Bitte geben Sie sowohl Benutzername als auch Passwort ein"
+      );
       if (!isMovingRight && !isMovingLeft) {
         setIsMovingRight(true);
       } else if (isMovingRight) {
@@ -63,10 +65,11 @@ function AdminPage() {
   const tryLogin = async () => {
     try {
       const response = await fetch(
-        "https://arliving.herokuapp.com/arliving/pb_log_in_restaurant",
+        "https://digimont-b0236e96b22c.herokuapp.com/django/pb_log_in_restaurant",
         {
           method: "POST",
           headers: {
+            "X-API-KEY": process.env.X_API_KEY,
             "Content-Type": "application/json",
           },
 
@@ -104,10 +107,9 @@ function AdminPage() {
 
         //ASK:
         //staviti u neki sessionStorage user-a?
-        setTimeout(()=>{
+        setTimeout(() => {
           router.push("/orders");
-        }, 1000)
-        
+        }, 1000);
       }
     } catch (error) {
       //setShowErrorMessage('An error occurred while fetching data');
@@ -165,9 +167,7 @@ function AdminPage() {
               isMovingLeft ? styles.moveDown : ""
             }`}
           >
-            <span className={styles.textCenter}>
-              {errorMessage}
-            </span>
+            <span className={styles.textCenter}>{errorMessage}</span>
           </p>
         )}
         <div className={styles.loadingWrapper}>
