@@ -74,7 +74,7 @@ function OrdersPage() {
   const tryGetOrders = async () => {
     try {
       const response = await fetch(
-        "https://arliving.herokuapp.com/arliving/pb_get_order_by_restaurant",
+        "https://digimont-b0236e96b22c.herokuapp.com/django/pb_get_order_by_restaurant",
         {
           method: "POST",
           headers: {

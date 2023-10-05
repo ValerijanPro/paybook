@@ -1,7 +1,7 @@
 
 
 
-POST https://arliving.herokuapp.com/arliving/pb_create_order
+POST https://digimont-b0236e96b22c.herokuapp.com/django//pb_create_order
 content-type: application/json
 
 {

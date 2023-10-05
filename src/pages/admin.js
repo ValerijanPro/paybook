@@ -63,7 +63,7 @@ function AdminPage() {
   const tryLogin = async () => {
     try {
       const response = await fetch(
-        "https://arliving.herokuapp.com/arliving/pb_log_in_restaurant",
+        "https://digimont-b0236e96b22c.herokuapp.com/django/pb_log_in_restaurant",
         {
           method: "POST",
           headers: {
