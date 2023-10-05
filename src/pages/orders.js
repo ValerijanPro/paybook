@@ -36,12 +36,8 @@ function OrdersPage() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-<<<<<<< HEAD
       console.log("2s ");
       if (restaurant) {
-=======
-      if ( restaurant) {
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
         tryGetOrders().then(() => {});
       }
     }, 2000);
@@ -100,12 +96,8 @@ function OrdersPage() {
         responseData.message &&
         responseData.message == "No orders found for this restaurant"
       ) {
-<<<<<<< HEAD
-        console.log("show waiting screen = true");
-=======
 
         
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
         //setShowWaitingScreen(true);
         return;
       }
@@ -134,16 +126,10 @@ function OrdersPage() {
         tmp.push(x);
       }
 
-<<<<<<< HEAD
-      if (tmp.length != 0) {
-        console.log("Here " + orderArray.length);
-        if (orderArray.length == 0) {
-=======
       if(tmp.length!=0) {
 
         if(orderArray.length==0){
           
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
           setOrders(tmp);
 
           setOrderArray((prevOrderArray) => [...prevOrderArray, tmp]);
@@ -154,14 +140,9 @@ function OrdersPage() {
 
         setOrderArray((prevOrderArray) => [...prevOrderArray, tmp]);
       }
-<<<<<<< HEAD
-
-      //console.log(orders.length+" orders");
-=======
      
    
       
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
     } catch (error) {
       //setError('An error occurred while fetching data');
     }
@@ -172,24 +153,10 @@ function OrdersPage() {
     setIsAnimating(true);
 
     setTimeout(() => {
-<<<<<<< HEAD
-      console.log("pre " + orderArray.length);
-=======
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
       //setOrderArray([]);
       const arrayCopy = orderArray.slice();
       const updatedArray = arrayCopy.filter((_, index) => index !== orderIndex);
       setOrderArray(updatedArray);
-<<<<<<< HEAD
-      console.log("new array length " + updatedArray.length);
-      if (updatedArray.length == 0) {
-        console.log("no left");
-        setOrderIndex(-1);
-        setOrders([]);
-      } else {
-        console.log("yes left");
-        setOrderIndex((orderIndex + 1) % updatedArray.length);
-=======
 
       if(updatedArray.length==0) {
 
@@ -199,19 +166,13 @@ function OrdersPage() {
       else{
 
         setOrderIndex((orderIndex+1)%updatedArray.length);
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
         setOrders(orderArray[orderIndex]);
       }
 
       tryGetOrders().then(() => {
         setIsAnimating(false);
       });
-<<<<<<< HEAD
-
-      console.log("posle " + orderArray.length);
-=======
      
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
     }, 1000);
   };
 
@@ -244,14 +205,6 @@ function OrdersPage() {
           colorIndex = (colorIndex + 1) % colorCycle.length;
           setOrderColor(colorCycle[colorIndex]);
           setIsAnimating(false);
-<<<<<<< HEAD
-          if (orderIndex != 0)
-            setOrderIndex((orderIndex - 1) % orderArray.length);
-          else {
-            setOrderIndex(orderArray.length - 1);
-          }
-        }, 1000);
-=======
           /*if(orderIndex != 0)
             setOrderIndex((orderIndex - 1) % (orderArray.length));
           else{
@@ -259,7 +212,6 @@ function OrdersPage() {
           }*/
         }, 1000)
         
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
       }
       if (touchMoveX > 0) {
         // Swipe right
@@ -282,11 +234,7 @@ function OrdersPage() {
 
   const handleBellIconClick = async () => {
     setIsBellRinging(false);
-<<<<<<< HEAD
-    console.log("Pavle Vujisic " + isBellRinging);
-=======
     
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
     if (!isModalOpen) {
       try {
         // Fetch data here and set it to modalData
@@ -299,11 +247,7 @@ function OrdersPage() {
     }
 
     setIsModalOpen(!isModalOpen);
-<<<<<<< HEAD
-    console.log("isModalOpen: " + isModalOpen);
-=======
  
->>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
   };
 
   const handleModalElementClick = (index) => {
