@@ -36,8 +36,12 @@ function OrdersPage() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
+<<<<<<< HEAD
       console.log("2s ");
       if (restaurant) {
+=======
+      if ( restaurant) {
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
         tryGetOrders().then(() => {});
       }
     }, 2000);
@@ -71,7 +75,6 @@ function OrdersPage() {
 
   const tryGetOrders = async () => {
     try {
-      console.log("Asd " + orderArray.length);
       const response = await fetch(
         "https://digimont-b0236e96b22c.herokuapp.com/django/pb_get_order_by_restaurant",
         {
@@ -92,18 +95,23 @@ function OrdersPage() {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
+
       if (
         responseData.message &&
         responseData.message == "No orders found for this restaurant"
       ) {
+<<<<<<< HEAD
         console.log("show waiting screen = true");
+=======
+
+        
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
         //setShowWaitingScreen(true);
         return;
       }
 
       //check for calls
-      console.log(JSON.stringify(responseData));
+      
       let call = responseData.call;
       if (call) {
         setIsBellRinging(true);
@@ -119,7 +127,6 @@ function OrdersPage() {
       }
 
       //get the orders
-
       let tmpArray = responseData.order;
       let tmp = [];
 
@@ -127,9 +134,16 @@ function OrdersPage() {
         tmp.push(x);
       }
 
+<<<<<<< HEAD
       if (tmp.length != 0) {
         console.log("Here " + orderArray.length);
         if (orderArray.length == 0) {
+=======
+      if(tmp.length!=0) {
+
+        if(orderArray.length==0){
+          
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
           setOrders(tmp);
 
           setOrderArray((prevOrderArray) => [...prevOrderArray, tmp]);
@@ -140,8 +154,14 @@ function OrdersPage() {
 
         setOrderArray((prevOrderArray) => [...prevOrderArray, tmp]);
       }
+<<<<<<< HEAD
 
       //console.log(orders.length+" orders");
+=======
+     
+   
+      
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
     } catch (error) {
       //setError('An error occurred while fetching data');
     }
@@ -152,11 +172,15 @@ function OrdersPage() {
     setIsAnimating(true);
 
     setTimeout(() => {
+<<<<<<< HEAD
       console.log("pre " + orderArray.length);
+=======
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
       //setOrderArray([]);
       const arrayCopy = orderArray.slice();
       const updatedArray = arrayCopy.filter((_, index) => index !== orderIndex);
       setOrderArray(updatedArray);
+<<<<<<< HEAD
       console.log("new array length " + updatedArray.length);
       if (updatedArray.length == 0) {
         console.log("no left");
@@ -165,14 +189,29 @@ function OrdersPage() {
       } else {
         console.log("yes left");
         setOrderIndex((orderIndex + 1) % updatedArray.length);
+=======
+
+      if(updatedArray.length==0) {
+
+        setOrderIndex(-1);
+        setOrders([]);
+      }
+      else{
+
+        setOrderIndex((orderIndex+1)%updatedArray.length);
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
         setOrders(orderArray[orderIndex]);
       }
 
       tryGetOrders().then(() => {
         setIsAnimating(false);
       });
+<<<<<<< HEAD
 
       console.log("posle " + orderArray.length);
+=======
+     
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
     }, 1000);
   };
 
@@ -197,15 +236,30 @@ function OrdersPage() {
         setSwippedDirection("L");
         setIsAnimating(true);
         setTimeout(() => {
+          const arrayCopy = orderArray.slice();
+          const updatedArray = arrayCopy.filter((_, index) => index !== orderIndex);
+          setOrderArray(updatedArray);
+          
+
           colorIndex = (colorIndex + 1) % colorCycle.length;
           setOrderColor(colorCycle[colorIndex]);
           setIsAnimating(false);
+<<<<<<< HEAD
           if (orderIndex != 0)
             setOrderIndex((orderIndex - 1) % orderArray.length);
           else {
             setOrderIndex(orderArray.length - 1);
           }
         }, 1000);
+=======
+          /*if(orderIndex != 0)
+            setOrderIndex((orderIndex - 1) % (orderArray.length));
+          else{
+            setOrderIndex(orderArray.length - 1);
+          }*/
+        }, 1000)
+        
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
       }
       if (touchMoveX > 0) {
         // Swipe right
@@ -228,7 +282,11 @@ function OrdersPage() {
 
   const handleBellIconClick = async () => {
     setIsBellRinging(false);
+<<<<<<< HEAD
     console.log("Pavle Vujisic " + isBellRinging);
+=======
+    
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
     if (!isModalOpen) {
       try {
         // Fetch data here and set it to modalData
@@ -241,7 +299,11 @@ function OrdersPage() {
     }
 
     setIsModalOpen(!isModalOpen);
+<<<<<<< HEAD
     console.log("isModalOpen: " + isModalOpen);
+=======
+ 
+>>>>>>> 7f9bde654a2304e87c4a7ae7116a09598ff67bd9
   };
 
   const handleModalElementClick = (index) => {
@@ -323,6 +385,11 @@ function OrdersPage() {
                 <div style={{ display: "flex" }}>
                   <div style={{ width: "50%" }}>Menge: {order.quantity}</div>
                   <div style={{ width: "50%" }}>Größe: {order.size}</div>
+                </div>
+                <div style={{display: "flex"}}>
+                  <div style={{ width: "50%" }}>Anmerkungen:</div>
+                  <div style={{ width: "50%" }}>{order.waiter_notice}</div>
+                 
                 </div>
               </div>
             ))}
